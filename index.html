@@ -92,7 +92,7 @@
             user-select: none;
         }
 
-        /* --- WRAPPER KARAKTER & 3 JALUR ORBIT --- */
+        /* --- WRAPPER KARAKTER & ELEMEN MENGAMBANG --- */
         .character-wrapper {
             position: absolute;
             bottom: 60px;
@@ -107,79 +107,51 @@
             height: 600px;
             background: url('POI.png') no-repeat center bottom;
             background-size: contain;
-            pointer-events: none;
+            /* pointer-events: none dihapus agar gambar di dalamnya bisa tampil normal */
             position: relative;
             z-index: 5;
         }
 
-        /* Sistem Pusat Orbit */
-        .orbit-system {
+        /* --- STYLING ELEMEN MELAYANG --- */
+        .floating-item {
             position: absolute;
-            top: 50%; 
-            left: 50%;
-            width: 0;
-            height: 0;
-            z-index: 6; 
-            pointer-events: none;
-        }
-
-        /* Lintasan Dasar */
-        .orbit-track {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            border-radius: 50%;
-            /* border: 1px dashed rgba(0,0,0,0.1); Hapus tanda slash ini jika mau garis lintasannya terlihat */
-        }
-
-        /* JALUR 1 (Terdalam / Paling Dekat) */
-        .track-1 {
-            width: 400px; height: 400px;
-            margin-top: -200px; margin-left: -200px;
-            animation: spin 12s linear infinite;
-        }
-
-        /* JALUR 2 (Tengah) */
-        .track-2 {
-            width: 550px; height: 550px;
-            margin-top: -275px; margin-left: -275px;
-            animation: spin 18s linear infinite;
-        }
-
-        /* JALUR 3 (Terluar / Paling Jauh) */
-        .track-3 {
-            width: 700px; height: 700px;
-            margin-top: -350px; margin-left: -350px;
-            animation: spin 26s linear infinite;
-        }
-
-        /* Gambar Item Orbit */
-        .orbit-item {
-            position: absolute;
-            top: -30px; 
-            left: 50%;
-            margin-left: -30px; 
-            width: 60px; 
-            height: 60px;
             object-fit: contain;
+            z-index: 6;
+            pointer-events: none; /* Agar tidak mengganggu klik */
+            filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.1));
         }
 
-        /* Counter-spin agar gambar tetap tegak lurus (durasi disamakan dengan jalur masing-masing) */
-        .item-1 { animation: counter-spin 12s linear infinite; }
-        .item-2 { animation: counter-spin 18s linear infinite; }
-        .item-3 { animation: counter-spin 26s linear infinite; }
-
-        /* Mengatur posisi start yang menyebar menggunakan animation-delay negatif */
-        .track-1, .item-1 { animation-delay: 0s; }
-        .track-2, .item-2 { animation-delay: -6s; }
-        .track-3, .item-3 { animation-delay: -14s; }
-
-        /* Keyframes */
-        @keyframes spin { 
-            100% { transform: rotate(360deg); } 
+        /* Posisi & Animasi masing-masing item */
+        .float-1 {
+            width: 65px; height: 65px;
+            top: 30%; left: 15px;
+            animation: float-up-down-1 4.5s ease-in-out infinite;
         }
-        @keyframes counter-spin { 
-            100% { transform: rotate(-360deg); } 
+
+        .float-2 {
+            width: 55px; height: 55px;
+            top: 20%; right: 25px;
+            animation: float-up-down-2 5.5s ease-in-out infinite;
+        }
+
+        .float-3 {
+            width: 75px; height: 75px;
+            top: 60%; right: 15px;
+            animation: float-up-down-3 4s ease-in-out infinite;
+        }
+
+        /* Keyframes untuk efek melayang (Naik-Turun + Sedikit Miring) */
+        @keyframes float-up-down-1 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        @keyframes float-up-down-2 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(-6deg); }
+        }
+        @keyframes float-up-down-3 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(3deg); }
         }
 
         /* Glass Card (Kiri dan Kanan) */
@@ -354,10 +326,10 @@
                 height: 100%; 
             }
             
-            /* Penyesuaian 3 Jalur Orbit pada Layar HP */
-            .track-1 { width: 280px; height: 280px; margin-top: -140px; margin-left: -140px; }
-            .track-2 { width: 380px; height: 380px; margin-top: -190px; margin-left: -190px; }
-            .track-3 { width: 480px; height: 480px; margin-top: -240px; margin-left: -240px; }
+            /* Penyesuaian ukuran elemen melayang di versi mobile */
+            .float-1 { width: 50px; height: 50px; left: 10%; top: 25%; }
+            .float-2 { width: 45px; height: 45px; right: 10%; top: 15%; }
+            .float-3 { width: 55px; height: 55px; right: 15%; top: 55%; }
             
             .panel-left, .panel-right {
                 position: relative;
@@ -391,28 +363,13 @@
             <span>2026</span>
         </div>
 
-        <!-- Wrapper untuk Karakter & 3 Orbit -->
+        <!-- Wrapper untuk Karakter & Elemen Mengambang -->
         <div class="character-wrapper">
-            <div class="center-character"></div>
-            
-            <!-- Elemen Orbit (3 Jalur) -->
-            <div class="orbit-system">
-                
-                <!-- Jalur 1 (Dalam) -->
-                <div class="orbit-track track-1">
-                    <img src="kamera.png" alt="Orbit 1" class="orbit-item item-1">
-                </div>
-
-                <!-- Jalur 2 (Tengah) -->
-                <div class="orbit-track track-2">
-                    <img src="film.png" alt="Orbit 2" class="orbit-item item-2">
-                </div>
-
-                <!-- Jalur 3 (Luar) -->
-                <div class="orbit-track track-3">
-                    <img src="mac.png" alt="Orbit 3" class="orbit-item item-3">
-                </div>
-
+            <div class="center-character">
+                <!-- Elemen Mengambang -->
+                <img src="kamera.png" alt="Kamera" class="floating-item float-1">
+                <img src="film.png" alt="Film" class="floating-item float-2">
+                <img src="mac.png" alt="Mac" class="floating-item float-3">
             </div>
         </div>
 
@@ -420,6 +377,15 @@
             <div class="tag-blue">Designer & Video Editor</div>
             <p>Menerjemahkan ide abstrak menjadi pengalaman visual yang presisi, terorganisir, dan menarik. Menyeimbangkan strategi bisnis e-commerce dengan estetika desain modern.</p>
             <a href="#design" class="link-btn">Lihat karya saya &rarr;</a>
+        </div>
+
+        <div class="glass-panel panel-right">
+            <h3>Keahlian</h3>
+            <div class="skill-pill">★ Desain Grafis</div>
+            <div class="skill-pill">★ Video Editing</div>
+            <div class="skill-pill">★ E-Commerce Opt.</div>
+            <div class="skill-pill">★ Tipografi</div>
+            <div class="skill-pill">★ Visual Identity</div>
         </div>
 
         <div class="mac-dock">
