@@ -3,573 +3,425 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio - Minimalist Style</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Richi Andi - Portfolio</title>
     <style>
+        /* Konsep Warna & Variabel Futuristik (iOS UI Style) */
         :root {
-            --bg-light: #e8e8e8;
-            --text-dark: #111;
-            --text-light: #fff;
-            --accent: #000;
+            --bg-color: #e5e5ea; /* Latar belakang abu-abu terang ala Mac */
+            --bg-alt: #ffffff;
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --accent: #0071e3;
         }
 
-        /* Cadangan Smooth Scrolling dari CSS */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        * {
+        body, html {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             overflow-x: hidden;
+            scroll-behavior: auto;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        /* Top Bar */
-        .top-bar {
-            background-color: var(--text-dark);
-            color: var(--text-light);
-            font-size: 10px;
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 40px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .top-bar-right {
-            display: flex;
-            gap: 20px;
-        }
-
-        /* Sticky Navbar */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            position: sticky;
-            top: 0;
-            background-color: rgba(232, 232, 232, 0.95);
-            backdrop-filter: blur(5px);
-            z-index: 100;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .nav-links a:hover {
-            border-bottom: 2px solid var(--text-dark);
-            padding-bottom: 2px;
-        }
-
-        .logo {
-            font-size: 32px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            position: absolute;
+        /* Navigasi Atas (Top Menu) */
+        nav {
+            position: fixed;
+            top: 24px;
             left: 50%;
             transform: translateX(-50%);
-        }
-
-        .nav-icons {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            padding: 14px 32px;
+            border-radius: 50px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--glass-border);
+            z-index: 9999;
             display: flex;
-            gap: 20px;
-            font-size: 12px;
-            text-transform: uppercase;
-            font-weight: 600;
+            gap: 28px;
         }
 
-        /* Hero Section */
-        .hero {
+        nav a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        nav a:hover { color: var(--text-muted); }
+
+        /* --- DESAIN HALAMAN HOME BARU --- */
+        #home {
             position: relative;
-            height: 90vh;
+            min-height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            background: radial-gradient(circle at center, #f5f5f7 0%, #e5e5ea 100%);
         }
 
-        .hero-bg-text {
+        /* Teks Latar Belakang Raksasa */
+        .bg-text-large {
             position: absolute;
-            font-size: 25vw;
-            font-weight: 800;
-            color: #111;
-            z-index: 1;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            line-height: 0.8;
-            letter-spacing: -5px;
-            white-space: nowrap;
-        }
-
-        .hero-image {
-            position: relative;
-            z-index: 2;
-            height: 90%;
-            width: auto;
-            object-fit: cover;
-        }
-
-        .hero-text-left {
-            position: absolute;
-            left: 40px;
-            top: 20%;
-            z-index: 3;
-            font-size: 12px;
-            letter-spacing: 2px;
-            line-height: 1.6;
-        }
-
-        .hero-text-right {
-            position: absolute;
-            right: 40px;
-            bottom: 20%;
-            z-index: 3;
-            font-size: 12px;
-            letter-spacing: 2px;
-            line-height: 1.6;
-            text-align: right;
-        }
-
-        .hero-cta {
-            position: absolute;
-            left: 40px;
-            bottom: 20%;
-            z-index: 3;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .btn-primary {
-            background-color: var(--accent);
-            color: var(--text-light);
-            padding: 15px 30px;
-            font-size: 12px;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-        
-        .btn-primary:hover {
-            background-color: #333;
-        }
-
-        .link-underline {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            text-decoration: underline;
-            letter-spacing: 1px;
-        }
-
-        /* Services Section */
-        .services {
-            background-color: var(--text-dark);
-            color: var(--text-light);
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            padding: 80px 40px;
-        }
-
-        .service-card {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .service-card img {
-            width: 100px;
-            height: 120px;
-            object-fit: cover;
-        }
-
-        .service-info h3 {
-            font-size: 16px;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .service-info p {
-            font-size: 12px;
-            color: #aaa;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-
-        .service-info a {
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 1px solid #fff;
-            padding-bottom: 2px;
-        }
-
-        /* Showreel Section */
-        .showreel {
-            display: flex;
-            align-items: center;
-            padding: 0 40px 0 80px;
-            background-color: #d1d1d1;
-            min-height: 70vh;
-        }
-
-        .showreel-content {
-            flex: 1;
-            padding-right: 40px;
-        }
-
-        .showreel-content h4 {
-            font-size: 14px;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-            font-weight: 400;
-        }
-
-        .showreel-content h2 {
-            font-size: 60px;
-            font-weight: 800;
-            line-height: 1;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-        }
-
-        .showreel-content p {
-            font-size: 14px;
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
-
-        .showreel-video {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            padding: 40px 0;
-        }
-
-        .showreel-video video {
+            top: 15%;
             width: 100%;
-            max-width: 600px;
-            height: auto;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            font-size: 14vw;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: -0.02em;
+            z-index: 1;
+            user-select: none;
         }
 
-        /* Stats Section */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            padding: 60px 40px;
-            border-bottom: 1px solid #ccc;
-            background-color: var(--bg-light);
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .stat-icon {
-            font-size: 24px;
-        }
-
-        .stat-text h4 {
-            font-size: 12px;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-
-        .stat-text p {
-            font-size: 11px;
-            color: #666;
-        }
-
-        /* Portfolio Grid Section */
-        .portfolio-grid {
-            padding: 80px 40px;
-            background-color: var(--bg-light);
-        }
-
-        .portfolio-header {
+        .bg-text-sub {
+            position: absolute;
+            top: 40%;
+            width: 80%;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
+            font-size: 2vw;
+            font-weight: 300;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            z-index: 1;
+            user-select: none;
         }
 
-        .portfolio-header h2 {
-            font-size: 20px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .portfolio-header a {
-            font-size: 12px;
-            text-transform: uppercase;
-            text-decoration: underline;
-            font-weight: 600;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .grid-item {
-            position: relative;
-            background-color: #d1d1d1;
-            aspect-ratio: 3/4;
-            overflow: hidden;
-        }
-
-        .grid-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .grid-item:hover img {
-            transform: scale(1.05);
-        }
-
-        .project-link {
+        /* Foto Karakter Tengah */
+        .center-character {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(0,0,0,0.5);
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 10px;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            z-index: 2;
+            bottom: 60px; /* Di atas dock */
+            width: 400px;
+            height: 600px;
+            z-index: 5;
+            /* GANTI URL DI BAWAH DENGAN LINK FOTO TRANSPARAN ANDA */
+            background: url('https://via.placeholder.com/400x600/cccccc/ffffff?text=FOTO+ANDA+DISINI+(PNG+Transparan)') no-repeat center bottom;
+            background-size: contain;
+            pointer-events: none; /* Agar klik tembus ke belakang */
         }
 
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .navbar { flex-direction: column; gap: 20px; }
-            .logo { position: static; transform: none; margin: 10px 0;}
-            .services { grid-template-columns: 1fr; }
-            .showreel { flex-direction: column; padding: 40px; }
-            .showreel-content { padding-right: 0; text-align: center; }
-            .stats { grid-template-columns: 1fr 1fr; }
-            .grid-container { grid-template-columns: 1fr 1fr; }
-            .hero-bg-text { font-size: 30vw; }
-            .hero-cta { flex-direction: column; align-items: flex-start; gap: 15px; }
-            .hero-text-right { display: none; }
+        /* Glass Card (Kiri dan Kanan) */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            position: absolute;
+            z-index: 10;
+            max-width: 320px;
         }
-        @media (max-width: 600px) {
-            .grid-container { grid-template-columns: 1fr; }
-            .stats { grid-template-columns: 1fr; }
+
+        .panel-left { left: 10%; top: 45%; transform: translateY(-50%); }
+        .panel-right { right: 10%; top: 45%; transform: translateY(-50%); }
+
+        .tag-blue {
+            display: inline-block;
+            background: #e0f0ff;
+            color: #0071e3;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .glass-panel p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .glass-panel .link-btn {
+            color: #0071e3;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .glass-panel .link-btn:hover { text-decoration: underline; }
+
+        .glass-panel h3 { margin: 0 0 16px 0; font-size: 1.1rem; text-align: center;}
+        
+        .skill-pill {
+            background: rgba(255,255,255,0.6);
+            padding: 8px 16px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            text-align: center;
+            font-weight: 500;
+            color: #333;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        /* --- MAC OS DOCK HOVER EFFECT --- */
+        .mac-dock {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 28px;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            align-items: flex-end; /* Penting untuk efek membesar ke atas */
+        }
+
+        .dock-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: bottom center;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        /* Efek Interaktif Hover (Membesar & Mendorong Kanan-Kiri) */
+        .dock-item:hover {
+            transform: scale(1.6) translateY(-10px);
+            margin: 0 15px; /* Memberi ruang agar ikon sebelah terdorong */
+            z-index: 10;
+        }
+
+        /* Tooltip Nama Software di Atas Ikon */
+        .dock-item::after {
+            content: attr(data-title);
+            position: absolute;
+            top: -40px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: normal;
+            opacity: 0;
+            white-space: nowrap;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+        .dock-item:hover::after { opacity: 1; }
+
+        /* Desain Ikon Custom (Mengikuti Software Asli) */
+        .ic-ps { background: #001e36; border: 2px solid #31a8ff; color: #31a8ff; }
+        .ic-ai { background: #330000; border: 2px solid #ff9a00; color: #ff9a00; }
+        .ic-pr { background: #2a004f; border: 2px solid #e978ff; color: #e978ff; }
+        .ic-cc { background: #000000; color: #ffffff; border-radius: 50%; } /* CapCut style */
+        .ic-cv { background: linear-gradient(135deg, #00c4cc, #7d2ae8); color: white; } /* Canva style */
+        .ic-fg { background: #ffffff; border: 2px solid #f24e1e; color: #f24e1e; } /* Figma style */
+
+        /* --- STYLING UNTUK SECTION LAINNYA --- */
+        section:not(#home) {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 24px;
+            box-sizing: border-box;
+            background-color: var(--bg-alt);
+        }
+        section:nth-child(even):not(#home) { background-color: var(--bg-color); }
+        .container { max-width: 1080px; width: 100%; }
+        .section-title { font-size: 3rem; margin-bottom: 16px; text-align: center; }
+        .section-subtitle { text-align: center; color: var(--text-muted); font-size: 1.2rem; margin-bottom: 64px; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; }
+        .card { background: var(--glass-bg); border-radius: 24px; padding: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); transition: transform 0.5s; border: 1px solid rgba(255,255,255,0.8); }
+        .card:hover { transform: translateY(-8px); }
+        .card-img { width: 100%; height: 240px; background: #ebebef; border-radius: 16px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; }
+
+        /* Responsivitas Mobile */
+        @media (max-width: 900px) {
+            nav { padding: 12px 20px; gap: 16px; width: max-content; }
+            nav a { font-size: 12px; }
+            
+            .bg-text-large { font-size: 20vw; top: 10%; }
+            .bg-text-sub { font-size: 4vw; top: 25%; }
+            .center-character { width: 280px; height: 450px; bottom: 80px; }
+            
+            /* Tumpuk panel untuk layar kecil */
+            .panel-left, .panel-right {
+                position: relative;
+                left: 0; right: 0; top: 0;
+                transform: none;
+                margin: 0 auto 20px auto;
+                width: 85%;
+                max-width: none;
+            }
+            #home { flex-direction: column; justify-content: flex-start; padding-top: 150px; min-height: 120vh;}
+            .mac-dock { bottom: 20px; padding: 8px 12px; gap: 8px; }
+            .dock-item { width: 40px; height: 40px; font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="top-bar-left">Available for Freelance Projects</div>
-        <div class="top-bar-right">
-            <a href="#">Download CV</a>
-            <a href="#contact">Contact Me</a>
-        </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar">
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#showreel">Showreel</a></li>
-            <li><a href="#portfolio">Work</a></li>
-        </ul>
-        <div class="logo">PORTO.</div>
-        <div class="nav-icons">
-            <a href="https://github.com" target="_blank">GitHub</a>
-            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-        </div>
+    <!-- Navigasi Floating Glass -->
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#cv">CV</a>
+        <a href="#design">Design</a>
+        <a href="#video">Video</a>
+        <a href="#company">Company</a>
+        <a href="#contact">Contact</a>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-bg-text">HELLO</div>
-        
-        <div class="hero-text-left">
-            <p>DESIGN<br>THAT SPEAKS<br>FOR ITSELF.</p>
+    <!-- 1. BAGIAN HOME (BARU - ALA MAC OS / MONALISA) -->
+    <section id="home">
+        <!-- Teks Background -->
+        <div class="bg-text-large">PORTFOLIO</div>
+        <div class="bg-text-sub">
+            <span>RICHI ANDI</span>
+            <span>2026</span>
         </div>
 
-        <img src="https://placehold.co/600x900/d1d1d1/a3a3a3?text=Foto+Profil" alt="Profile Image" class="hero-image">
+        <!-- Gambar Tengah (Ganti Background URL di CSS Class .center-character) -->
+        <div class="center-character"></div>
 
-        <div class="hero-text-right">
-            <p>SELECTED<br>WORKS<br>2024</p>
+        <!-- Panel Kiri -->
+        <div class="glass-panel panel-left">
+            <div class="tag-blue">Designer & Video Editor</div>
+            <p>Menerjemahkan ide abstrak menjadi pengalaman visual yang presisi, terorganisir, dan menarik. Menyeimbangkan strategi bisnis e-commerce dengan estetika desain modern.</p>
+            <a href="#design" class="link-btn">Lihat karya saya &rarr;</a>
         </div>
 
-        <div class="hero-cta">
-            <a href="#portfolio"><button class="btn-primary">View My Work</button></a>
-            <a href="#services" class="link-underline">Explore Services</a>
+        <!-- Panel Kanan -->
+        <div class="glass-panel panel-right">
+            <h3>Keahlian</h3>
+            <div class="skill-pill">★ Desain Grafis</div>
+            <div class="skill-pill">★ Video Editing</div>
+            <div class="skill-pill">★ E-Commerce Opt.</div>
+            <div class="skill-pill">★ Tipografi</div>
+            <div class="skill-pill">★ Visual Identity</div>
+        </div>
+
+        <!-- Mac OS Dock -->
+        <div class="mac-dock">
+            <div class="dock-item ic-ps" data-title="Photoshop">Ps</div>
+            <div class="dock-item ic-ai" data-title="Illustrator">Ai</div>
+            <div class="dock-item ic-pr" data-title="Premiere">Pr</div>
+            <div class="dock-item ic-cc" data-title="CapCut">Cc</div>
+            <div class="dock-item ic-cv" data-title="Canva">Cv</div>
+            <div class="dock-item ic-fg" data-title="Figma">Fg</div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="service-card">
-            <img src="https://placehold.co/100x120/333/666?text=UI" alt="UI Design">
-            <div class="service-info">
-                <h3>UI/UX DESIGN</h3>
-                <p>Creating intuitive and<br>beautiful interfaces.</p>
-                <a href="#portfolio">See Details &rarr;</a>
+    <!-- 2. Bagian CV -->
+    <section id="cv">
+        <div class="container">
+            <h2 class="section-title">Curriculum Vitae</h2>
+            <p class="section-subtitle">Perjalanan karir dan pengalaman profesional.</p>
+            <!-- (Isi CV Sama seperti sebelumnya, saya persingkat untuk space di layout ini) -->
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>Creative & Operational Lead - Gallerich Studio</h3>
+                <p>Mengelola operasional e-commerce dan strategi pertumbuhan toko di TikTok Shop dan Tokopedia.</p>
             </div>
-        </div>
-        <div class="service-card">
-            <img src="https://placehold.co/100x120/333/666?text=WEB" alt="Web Dev">
-            <div class="service-info">
-                <h3>WEB DEV</h3>
-                <p>Responsive and smooth<br>web experiences.</p>
-                <a href="#portfolio">See Details &rarr;</a>
-            </div>
-        </div>
-        <div class="service-card">
-            <img src="https://placehold.co/100x120/333/666?text=ART" alt="Branding">
-            <div class="service-info">
-                <h3>BRANDING</h3>
-                <p>Crafting unique<br>visual identities.</p>
-                <a href="#portfolio">See Details &rarr;</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Showreel Section -->
-    <section id="showreel" class="showreel">
-        <div class="showreel-content">
-            <h4>FEATURED PROJECT</h4>
-            <h2>VIDEO<br>SHOWREEL</h2>
-            <p>A quick glimpse into my creative process, motion graphics, and recent development projects. Watch the highlight reel.</p>
-            <a href="https://github.com" target="_blank"><button class="btn-primary">Visit GitHub</button></a>
-        </div>
-        <div class="showreel-video">
-            <video controls autoplay loop muted>
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                Browser Anda tidak mendukung tag video.
-            </video>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="stat-item">
-            <div class="stat-icon">⚡</div>
-            <div class="stat-text">
-                <h4>FAST DELIVERY</h4>
-                <p>On-time project handover</p>
-            </div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-icon">💻</div>
-            <div class="stat-text">
-                <h4>CLEAN CODE</h4>
-                <p>Maintainable & structured</p>
-            </div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-icon">✨</div>
-            <div class="stat-text">
-                <h4>PIXEL PERFECT</h4>
-                <p>Attention to visual details</p>
-            </div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-icon">🤝</div>
-            <div class="stat-text">
-                <h4>COMMUNICATION</h4>
-                <p>Transparent work process</p>
+            <div class="card">
+                <h3>Visual Designer</h3>
+                <p>Menangani desain signage properti, material komersial, dan grafis pameran berkolaborasi dengan ADGI.</p>
             </div>
         </div>
     </section>
 
-    <!-- Portfolio Grid Section -->
-    <section id="portfolio" class="portfolio-grid">
-        <div class="portfolio-header">
-            <h2>SELECTED WORKS</h2>
-            <a href="https://github.com" target="_blank">View All on GitHub</a>
-        </div>
-        <div class="grid-container">
-            <div class="grid-item">
-                <a href="#" class="project-link">View Case</a>
-                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Project+1" alt="Project 1">
-            </div>
-            <div class="grid-item">
-                <a href="#" class="project-link">View Case</a>
-                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Project+2" alt="Project 2">
-            </div>
-            <div class="grid-item">
-                <a href="#" class="project-link">View Case</a>
-                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Project+3" alt="Project 3">
-            </div>
-            <div class="grid-item">
-                <a href="#" class="project-link">View Case</a>
-                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Project+4" alt="Project 4">
+    <!-- 3. Bagian Design -->
+    <section id="design">
+        <div class="container">
+            <h2 class="section-title">Design Portfolio</h2>
+            <div class="grid">
+                <div class="card"><div class="card-img">Desain 1</div><h3>Property Signage</h3></div>
+                <div class="card"><div class="card-img">Desain 2</div><h3>Exhibition Graphics</h3></div>
+                <div class="card"><div class="card-img">Desain 3</div><h3>Brand Identity</h3></div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Footer -->
-    <section id="contact" style="padding: 60px 40px; text-align: center; background: #111; color: #fff;">
-        <h2 style="font-size: 28px; margin-bottom: 20px; font-weight: 800; letter-spacing: 1px;">LET'S WORK TOGETHER.</h2>
-        <a href="mailto:hello@example.com" style="text-decoration: underline; font-size: 16px; letter-spacing: 1px;">hello@example.com</a>
+    <!-- 4. Bagian Video -->
+    <section id="video">
+        <div class="container">
+            <h2 class="section-title">Video Projects</h2>
+            <div class="grid">
+                <div class="card"><div class="card-img">Video 1</div><h3>E-Commerce Reels</h3></div>
+                <div class="card"><div class="card-img">Video 2</div><h3>Product Showcase</h3></div>
+                <div class="card"><div class="card-img">Video 3</div><h3>Event Coverage</h3></div>
+            </div>
+        </div>
     </section>
 
-    <!-- JavaScript for Perfect Smooth Scrolling -->
+    <!-- 5. Bagian Company -->
+    <section id="company">
+        <div class="container">
+            <h2 class="section-title">Gallerich Studio</h2>
+            <div class="card" style="text-align: center; padding: 48px;">
+                <p style="font-size: 1.1rem;">Platform ritel yang dikurasi dengan pendekatan visual yang kuat. Aktif berpartisipasi dalam program akselerasi pertumbuhan e-commerce.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Bagian Contact -->
+    <section id="contact">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-title">Mari Berkolaborasi</h2>
+            <p style="color: var(--text-muted); font-size: 1.2rem;">Hubungi saya untuk mendiskusikan desain dan kebutuhan video Anda.</p>
+            <br>
+            <a href="mailto:halo@emailanda.com" style="background:#1d1d1f; color:#fff; padding:16px 40px; border-radius:30px; text-decoration:none;">Mulai Percakapan</a>
+        </div>
+    </section>
+
+    <!-- Script Smooth Scroll -->
     <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        document.querySelectorAll('nav a, .link-btn').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-
-                const targetElement = document.querySelector(targetId);
-                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
                 if (targetElement) {
-                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
-                    const elementPosition = targetElement.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
-  
-                    window.scrollTo({
-                         top: offsetPosition,
-                         behavior: 'smooth'
-                    });
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                    const startPosition = window.pageYOffset;
+                    const distance = targetPosition - startPosition;
+                    const duration = 1500;
+                    let start = null;
+
+                    function easeInOutCubic(t, b, c, d) {
+                        t /= d / 2;
+                        if (t < 1) return c / 2 * t * t * t + b;
+                        t -= 2;
+                        return c / 2 * (t * t * t + 2) + b;
+                    }
+
+                    function animation(currentTime) {
+                        if (start === null) start = currentTime;
+                        const timeElapsed = currentTime - start;
+                        const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+                        window.scrollTo(0, run);
+                        if (timeElapsed < duration) {
+                            requestAnimationFrame(animation);
+                        } else {
+                            window.scrollTo(0, targetPosition);
+                        }
+                    }
+                    requestAnimationFrame(animation);
                 }
             });
         });
