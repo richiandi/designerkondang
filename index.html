@@ -7,7 +7,7 @@
     <style>
         /* Konsep Warna & Variabel Futuristik (iOS UI Style) */
         :root {
-            --bg-color: #e5e5ea; /* Latar belakang abu-abu terang ala Mac */
+            --bg-color: #e5e5ea;
             --bg-alt: #ffffff;
             --text-main: #1d1d1f;
             --text-muted: #86868b;
@@ -53,7 +53,7 @@
         }
         nav a:hover { color: var(--text-muted); }
 
-        /* --- DESAIN HALAMAN HOME BARU --- */
+        /* --- DESAIN HALAMAN HOME --- */
         #home {
             position: relative;
             min-height: 100vh;
@@ -65,7 +65,6 @@
             background: radial-gradient(circle at center, #f5f5f7 0%, #e5e5ea 100%);
         }
 
-        /* Teks Latar Belakang Raksasa */
         .bg-text-large {
             position: absolute;
             top: 15%;
@@ -96,14 +95,13 @@
         /* Foto Karakter Tengah */
         .center-character {
             position: absolute;
-            bottom: 60px; /* Di atas dock */
+            bottom: 60px;
             width: 400px;
             height: 600px;
             z-index: 5;
-            /* GANTI URL DI BAWAH DENGAN LINK FOTO TRANSPARAN ANDA */
             background: url('POI.png') no-repeat center bottom;
             background-size: contain;
-            pointer-events: none; /* Agar klik tembus ke belakang */
+            pointer-events: none;
         }
 
         /* Glass Card (Kiri dan Kanan) */
@@ -148,7 +146,6 @@
             font-size: 0.95rem;
         }
         .glass-panel .link-btn:hover { text-decoration: underline; }
-
         .glass-panel h3 { margin: 0 0 16px 0; font-size: 1.1rem; text-align: center;}
         
         .skill-pill {
@@ -163,7 +160,7 @@
             border: 1px solid rgba(255,255,255,0.8);
         }
 
-        /* --- MAC OS DOCK HOVER EFFECT --- */
+        /* --- MAC OS DOCK --- */
         .mac-dock {
             position: absolute;
             bottom: 30px;
@@ -179,7 +176,7 @@
             border-radius: 28px;
             z-index: 100;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            align-items: flex-end; /* Penting untuk efek membesar ke atas */
+            align-items: flex-end;
         }
 
         .dock-item {
@@ -198,14 +195,12 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
-        /* Efek Interaktif Hover (Membesar & Mendorong Kanan-Kiri) */
         .dock-item:hover {
             transform: scale(1.6) translateY(-10px);
-            margin: 0 15px; /* Memberi ruang agar ikon sebelah terdorong */
+            margin: 0 15px;
             z-index: 10;
         }
 
-        /* Tooltip Nama Software di Atas Ikon */
         .dock-item::after {
             content: attr(data-title);
             position: absolute;
@@ -223,13 +218,12 @@
         }
         .dock-item:hover::after { opacity: 1; }
 
-        /* Desain Ikon Custom (Mengikuti Software Asli) */
         .ic-ps { background: #001e36; border: 2px solid #31a8ff; color: #31a8ff; }
         .ic-ai { background: #330000; border: 2px solid #ff9a00; color: #ff9a00; }
         .ic-pr { background: #2a004f; border: 2px solid #e978ff; color: #e978ff; }
-        .ic-cc { background: #000000; color: #ffffff; border-radius: 50%; } /* CapCut style */
-        .ic-cv { background: linear-gradient(135deg, #00c4cc, #7d2ae8); color: white; } /* Canva style */
-        .ic-fg { background: #ffffff; border: 2px solid #f24e1e; color: #f24e1e; } /* Figma style */
+        .ic-cc { background: #000000; color: #ffffff; border-radius: 50%; }
+        .ic-cv { background: linear-gradient(135deg, #00c4cc, #7d2ae8); color: white; }
+        .ic-fg { background: #ffffff; border: 2px solid #f24e1e; color: #f24e1e; }
 
         /* --- STYLING UNTUK SECTION LAINNYA --- */
         section:not(#home) {
@@ -252,16 +246,36 @@
         .card:hover { transform: translateY(-8px); }
         .card-img { width: 100%; height: 240px; background: #ebebef; border-radius: 16px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; }
 
-        /* Responsivitas Mobile */
+        /* --- PERBAIKAN RESPONSIVITAS MOBILE (FOTO TIDAK TERTUTUP) --- */
         @media (max-width: 900px) {
             nav { padding: 12px 20px; gap: 16px; width: max-content; }
             nav a { font-size: 12px; }
             
             .bg-text-large { font-size: 20vw; top: 10%; }
             .bg-text-sub { font-size: 4vw; top: 25%; }
-            .center-character { width: 280px; height: 450px; bottom: 80px; }
             
-            /* Tumpuk panel untuk layar kecil */
+            /* Ubah layout home menjadi berurutan ke bawah (stacking) */
+            #home { 
+                flex-direction: column; 
+                justify-content: flex-start; 
+                padding-top: 100px; 
+                padding-bottom: 120px; /* Ruang untuk dock */
+                height: auto;
+                min-height: 100vh;
+                overflow-y: visible;
+            }
+
+            /* Ubah karakter menjadi relative agar tidak menumpuk di belakang panel */
+            .center-character { 
+                position: relative;
+                width: 100%; 
+                height: 380px; 
+                bottom: auto;
+                margin: 0 auto 20px auto; /* Memberi jarak dengan panel di bawahnya */
+                z-index: 5;
+            }
+            
+            /* Panel diatur berurutan di bawah karakter */
             .panel-left, .panel-right {
                 position: relative;
                 left: 0; right: 0; top: 0;
@@ -270,7 +284,7 @@
                 width: 85%;
                 max-width: none;
             }
-            #home { flex-direction: column; justify-content: flex-start; padding-top: 150px; min-height: 120vh;}
+            
             .mac-dock { bottom: 20px; padding: 8px 12px; gap: 8px; }
             .dock-item { width: 40px; height: 40px; font-size: 1rem; }
         }
@@ -278,7 +292,6 @@
 </head>
 <body>
 
-    <!-- Navigasi Floating Glass -->
     <nav>
         <a href="#home">Home</a>
         <a href="#cv">CV</a>
@@ -288,26 +301,22 @@
         <a href="#contact">Contact</a>
     </nav>
 
-    <!-- 1. BAGIAN HOME (BARU - ALA MAC OS / MONALISA) -->
     <section id="home">
-        <!-- Teks Background -->
         <div class="bg-text-large">PORTFOLIO</div>
         <div class="bg-text-sub">
             <span>RICHI ANDI</span>
             <span>2026</span>
         </div>
 
-        <!-- Gambar Tengah (Ganti Background URL di CSS Class .center-character) -->
+        <!-- Karakter sekarang akan muncul di atas panel pada versi mobile -->
         <div class="center-character"></div>
 
-        <!-- Panel Kiri -->
         <div class="glass-panel panel-left">
             <div class="tag-blue">Designer & Video Editor</div>
             <p>Menerjemahkan ide abstrak menjadi pengalaman visual yang presisi, terorganisir, dan menarik. Menyeimbangkan strategi bisnis e-commerce dengan estetika desain modern.</p>
             <a href="#design" class="link-btn">Lihat karya saya &rarr;</a>
         </div>
 
-        <!-- Panel Kanan -->
         <div class="glass-panel panel-right">
             <h3>Keahlian</h3>
             <div class="skill-pill">★ Desain Grafis</div>
@@ -317,7 +326,6 @@
             <div class="skill-pill">★ Visual Identity</div>
         </div>
 
-        <!-- Mac OS Dock -->
         <div class="mac-dock">
             <div class="dock-item ic-ps" data-title="Photoshop">Ps</div>
             <div class="dock-item ic-ai" data-title="Illustrator">Ai</div>
@@ -328,12 +336,11 @@
         </div>
     </section>
 
-    <!-- 2. Bagian CV -->
+    <!-- (Bagian lainnya tetap sama dan aman) -->
     <section id="cv">
         <div class="container">
             <h2 class="section-title">Curriculum Vitae</h2>
             <p class="section-subtitle">Perjalanan karir dan pengalaman profesional.</p>
-            <!-- (Isi CV Sama seperti sebelumnya, saya persingkat untuk space di layout ini) -->
             <div class="card" style="margin-bottom: 20px;">
                 <h3>Creative & Operational Lead - Gallerich Studio</h3>
                 <p>Mengelola operasional e-commerce dan strategi pertumbuhan toko di TikTok Shop dan Tokopedia.</p>
@@ -345,7 +352,6 @@
         </div>
     </section>
 
-    <!-- 3. Bagian Design -->
     <section id="design">
         <div class="container">
             <h2 class="section-title">Design Portfolio</h2>
@@ -357,7 +363,6 @@
         </div>
     </section>
 
-    <!-- 4. Bagian Video -->
     <section id="video">
         <div class="container">
             <h2 class="section-title">Video Projects</h2>
@@ -369,7 +374,6 @@
         </div>
     </section>
 
-    <!-- 5. Bagian Company -->
     <section id="company">
         <div class="container">
             <h2 class="section-title">Gallerich Studio</h2>
@@ -379,7 +383,6 @@
         </div>
     </section>
 
-    <!-- 6. Bagian Contact -->
     <section id="contact">
         <div class="container" style="text-align: center;">
             <h2 class="section-title">Mari Berkolaborasi</h2>
@@ -389,7 +392,6 @@
         </div>
     </section>
 
-    <!-- Script Smooth Scroll -->
     <script>
         document.querySelectorAll('nav a, .link-btn').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
