@@ -92,7 +92,7 @@
             user-select: none;
         }
 
-        /* --- WRAPPER KARAKTER & ORBIT --- */
+        /* --- WRAPPER KARAKTER & 3 JALUR ORBIT --- */
         .character-wrapper {
             position: absolute;
             bottom: 60px;
@@ -112,43 +112,69 @@
             z-index: 5;
         }
 
-        /* Sistem Orbit (Lintasan & Item) */
+        /* Sistem Pusat Orbit */
         .orbit-system {
             position: absolute;
-            top: 50%; /* Pusat orbit tepat di tengah badan */
+            top: 50%; 
             left: 50%;
             width: 0;
             height: 0;
-            z-index: 6; /* 6 agar mengelilingi di depan karakter */
+            z-index: 6; 
             pointer-events: none;
         }
 
+        /* Lintasan Dasar */
         .orbit-track {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 480px; /* Diameter orbit, perbesar jika ingin lebih lebar */
-            height: 480px;
-            margin-top: -240px; /* Selalu minus setengah dari height */
-            margin-left: -240px; /* Selalu minus setengah dari width */
             border-radius: 50%;
-            /* border: 1px dashed rgba(0,0,0,0.1); Hapus slash awal jika mau ada garis lintasan */
-            animation: spin 10s linear infinite; /* Kecepatan orbit (10 detik) */
+            /* border: 1px dashed rgba(0,0,0,0.1); Hapus tanda slash ini jika mau garis lintasannya terlihat */
         }
 
+        /* JALUR 1 (Terdalam / Paling Dekat) */
+        .track-1 {
+            width: 400px; height: 400px;
+            margin-top: -200px; margin-left: -200px;
+            animation: spin 12s linear infinite;
+        }
+
+        /* JALUR 2 (Tengah) */
+        .track-2 {
+            width: 550px; height: 550px;
+            margin-top: -275px; margin-left: -275px;
+            animation: spin 18s linear infinite;
+        }
+
+        /* JALUR 3 (Terluar / Paling Jauh) */
+        .track-3 {
+            width: 700px; height: 700px;
+            margin-top: -350px; margin-left: -350px;
+            animation: spin 26s linear infinite;
+        }
+
+        /* Gambar Item Orbit */
         .orbit-item {
             position: absolute;
-            top: -30px; /* Minus setengah ukuran item */
+            top: -30px; 
             left: 50%;
-            margin-left: -30px; /* Minus setengah ukuran item */
-            width: 60px; /* Ukuran gambar kotak */
+            margin-left: -30px; 
+            width: 60px; 
             height: 60px;
             object-fit: contain;
-            /* Counter-spin agar gambar selalu tegak ke atas */
-            animation: counter-spin 10s linear infinite;
         }
 
-        /* Keyframes untuk Putaran Orbit */
+        /* Counter-spin agar gambar tetap tegak lurus (durasi disamakan dengan jalur masing-masing) */
+        .item-1 { animation: counter-spin 12s linear infinite; }
+        .item-2 { animation: counter-spin 18s linear infinite; }
+        .item-3 { animation: counter-spin 26s linear infinite; }
+
+        /* Mengatur posisi start yang menyebar menggunakan animation-delay negatif */
+        .track-1, .item-1 { animation-delay: 0s; }
+        .track-2, .item-2 { animation-delay: -6s; }
+        .track-3, .item-3 { animation-delay: -14s; }
+
+        /* Keyframes */
         @keyframes spin { 
             100% { transform: rotate(360deg); } 
         }
@@ -316,7 +342,6 @@
                 overflow-y: visible;
             }
 
-            /* Wrapper menyesuaikan ukuran layar */
             .character-wrapper {
                 position: relative;
                 bottom: auto;
@@ -329,13 +354,10 @@
                 height: 100%; 
             }
             
-            /* Orbit diperkecil pada versi mobile */
-            .orbit-track {
-                width: 320px;
-                height: 320px;
-                margin-top: -160px;
-                margin-left: -160px;
-            }
+            /* Penyesuaian 3 Jalur Orbit pada Layar HP */
+            .track-1 { width: 280px; height: 280px; margin-top: -140px; margin-left: -140px; }
+            .track-2 { width: 380px; height: 380px; margin-top: -190px; margin-left: -190px; }
+            .track-3 { width: 480px; height: 480px; margin-top: -240px; margin-left: -240px; }
             
             .panel-left, .panel-right {
                 position: relative;
@@ -369,16 +391,28 @@
             <span>2026</span>
         </div>
 
-        <!-- Wrapper untuk Karakter & Orbit -->
+        <!-- Wrapper untuk Karakter & 3 Orbit -->
         <div class="character-wrapper">
             <div class="center-character"></div>
             
-            <!-- Elemen Orbit -->
+            <!-- Elemen Orbit (3 Jalur) -->
             <div class="orbit-system">
-                <div class="orbit-track">
-                    <!-- PASTIKAN MENGGANTI 'square.png' DENGAN NAMA GAMBAR ANDA -->
-                    <img src="square.png" alt="Orbit" class="orbit-item">
+                
+                <!-- Jalur 1 (Dalam) -->
+                <div class="orbit-track track-1">
+                    <img src="kamera.png" alt="Orbit 1" class="orbit-item item-1">
                 </div>
+
+                <!-- Jalur 2 (Tengah) -->
+                <div class="orbit-track track-2">
+                    <img src="film.png" alt="Orbit 2" class="orbit-item item-2">
+                </div>
+
+                <!-- Jalur 3 (Luar) -->
+                <div class="orbit-track track-3">
+                    <img src="mac.png" alt="Orbit 3" class="orbit-item item-3">
+                </div>
+
             </div>
         </div>
 
@@ -386,15 +420,6 @@
             <div class="tag-blue">Designer & Video Editor</div>
             <p>Menerjemahkan ide abstrak menjadi pengalaman visual yang presisi, terorganisir, dan menarik. Menyeimbangkan strategi bisnis e-commerce dengan estetika desain modern.</p>
             <a href="#design" class="link-btn">Lihat karya saya &rarr;</a>
-        </div>
-
-        <div class="glass-panel panel-right">
-            <h3>Keahlian</h3>
-            <div class="skill-pill">★ Desain Grafis</div>
-            <div class="skill-pill">★ Video Editing</div>
-            <div class="skill-pill">★ E-Commerce Opt.</div>
-            <div class="skill-pill">★ Tipografi</div>
-            <div class="skill-pill">★ Visual Identity</div>
         </div>
 
         <div class="mac-dock">
