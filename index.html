@@ -92,16 +92,68 @@
             user-select: none;
         }
 
-        /* Foto Karakter Tengah */
-        .center-character {
+        /* --- WRAPPER KARAKTER & ORBIT --- */
+        .character-wrapper {
             position: absolute;
             bottom: 60px;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .center-character {
             width: 400px;
             height: 600px;
-            z-index: 5;
             background: url('POI.png') no-repeat center bottom;
             background-size: contain;
             pointer-events: none;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* Sistem Orbit (Lintasan & Item) */
+        .orbit-system {
+            position: absolute;
+            top: 50%; /* Pusat orbit tepat di tengah badan */
+            left: 50%;
+            width: 0;
+            height: 0;
+            z-index: 6; /* 6 agar mengelilingi di depan karakter */
+            pointer-events: none;
+        }
+
+        .orbit-track {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 480px; /* Diameter orbit, perbesar jika ingin lebih lebar */
+            height: 480px;
+            margin-top: -240px; /* Selalu minus setengah dari height */
+            margin-left: -240px; /* Selalu minus setengah dari width */
+            border-radius: 50%;
+            /* border: 1px dashed rgba(0,0,0,0.1); Hapus slash awal jika mau ada garis lintasan */
+            animation: spin 10s linear infinite; /* Kecepatan orbit (10 detik) */
+        }
+
+        .orbit-item {
+            position: absolute;
+            top: -30px; /* Minus setengah ukuran item */
+            left: 50%;
+            margin-left: -30px; /* Minus setengah ukuran item */
+            width: 60px; /* Ukuran gambar kotak */
+            height: 60px;
+            object-fit: contain;
+            /* Counter-spin agar gambar selalu tegak ke atas */
+            animation: counter-spin 10s linear infinite;
+        }
+
+        /* Keyframes untuk Putaran Orbit */
+        @keyframes spin { 
+            100% { transform: rotate(360deg); } 
+        }
+        @keyframes counter-spin { 
+            100% { transform: rotate(-360deg); } 
         }
 
         /* Glass Card (Kiri dan Kanan) */
@@ -246,7 +298,7 @@
         .card:hover { transform: translateY(-8px); }
         .card-img { width: 100%; height: 240px; background: #ebebef; border-radius: 16px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; }
 
-        /* --- PERBAIKAN RESPONSIVITAS MOBILE (FOTO TIDAK TERTUTUP) --- */
+        /* --- PERBAIKAN RESPONSIVITAS MOBILE --- */
         @media (max-width: 900px) {
             nav { padding: 12px 20px; gap: 16px; width: max-content; }
             nav a { font-size: 12px; }
@@ -254,28 +306,37 @@
             .bg-text-large { font-size: 20vw; top: 10%; }
             .bg-text-sub { font-size: 4vw; top: 25%; }
             
-            /* Ubah layout home menjadi berurutan ke bawah (stacking) */
             #home { 
                 flex-direction: column; 
                 justify-content: flex-start; 
                 padding-top: 100px; 
-                padding-bottom: 120px; /* Ruang untuk dock */
+                padding-bottom: 120px; 
                 height: auto;
                 min-height: 100vh;
                 overflow-y: visible;
             }
 
-            /* Ubah karakter menjadi relative agar tidak menumpuk di belakang panel */
-            .center-character { 
+            /* Wrapper menyesuaikan ukuran layar */
+            .character-wrapper {
                 position: relative;
-                width: 100%; 
-                height: 380px; 
                 bottom: auto;
-                margin: 0 auto 20px auto; /* Memberi jarak dengan panel di bawahnya */
-                z-index: 5;
+                margin: 0 auto 20px auto;
+                width: 100%;
+                height: 380px;
+            }
+            .center-character { 
+                width: 100%; 
+                height: 100%; 
             }
             
-            /* Panel diatur berurutan di bawah karakter */
+            /* Orbit diperkecil pada versi mobile */
+            .orbit-track {
+                width: 320px;
+                height: 320px;
+                margin-top: -160px;
+                margin-left: -160px;
+            }
+            
             .panel-left, .panel-right {
                 position: relative;
                 left: 0; right: 0; top: 0;
@@ -308,13 +369,32 @@
             <span>2026</span>
         </div>
 
-        <!-- Karakter sekarang akan muncul di atas panel pada versi mobile -->
-        <div class="center-character"></div>
+        <!-- Wrapper untuk Karakter & Orbit -->
+        <div class="character-wrapper">
+            <div class="center-character"></div>
+            
+            <!-- Elemen Orbit -->
+            <div class="orbit-system">
+                <div class="orbit-track">
+                    <!-- PASTIKAN MENGGANTI 'square.png' DENGAN NAMA GAMBAR ANDA -->
+                    <img src="square.png" alt="Orbit" class="orbit-item">
+                </div>
+            </div>
+        </div>
 
         <div class="glass-panel panel-left">
             <div class="tag-blue">Designer & Video Editor</div>
             <p>Menerjemahkan ide abstrak menjadi pengalaman visual yang presisi, terorganisir, dan menarik. Menyeimbangkan strategi bisnis e-commerce dengan estetika desain modern.</p>
             <a href="#design" class="link-btn">Lihat karya saya &rarr;</a>
+        </div>
+
+        <div class="glass-panel panel-right">
+            <h3>Keahlian</h3>
+            <div class="skill-pill">★ Desain Grafis</div>
+            <div class="skill-pill">★ Video Editing</div>
+            <div class="skill-pill">★ E-Commerce Opt.</div>
+            <div class="skill-pill">★ Tipografi</div>
+            <div class="skill-pill">★ Visual Identity</div>
         </div>
 
         <div class="mac-dock">
@@ -327,7 +407,7 @@
         </div>
     </section>
 
-    <!-- (Bagian lainnya tetap sama dan aman) -->
+    <!-- (Sisa halaman tidak ada perubahan) -->
     <section id="cv">
         <div class="container">
             <h2 class="section-title">Curriculum Vitae</h2>
