@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio - GAZU Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-light: #e8e8e8;
+            --text-dark: #111;
+            --text-light: #fff;
+            --accent: #000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: var(--text-dark);
+            color: var(--text-light);
+            font-size: 10px;
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 40px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .top-bar-right {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg-text {
+            position: absolute;
+            font-size: 25vw;
+            font-weight: 800;
+            color: #111;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            line-height: 0.8;
+            letter-spacing: -5px;
+        }
+
+        /* GANTI GAMBAR HERO DI SINI */
+        .hero-image {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            width: auto;
+            object-fit: cover;
+        }
+
+        .hero-text-left {
+            position: absolute;
+            left: 40px;
+            top: 20%;
+            z-index: 3;
+            font-size: 12px;
+            letter-spacing: 2px;
+            line-height: 1.6;
+        }
+
+        .hero-text-right {
+            position: absolute;
+            right: 40px;
+            bottom: 20%;
+            z-index: 3;
+            font-size: 12px;
+            letter-spacing: 2px;
+            line-height: 1.6;
+            text-align: right;
+        }
+
+        .hero-cta {
+            position: absolute;
+            left: 40px;
+            bottom: 20%;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--text-light);
+            padding: 15px 30px;
+            font-size: 12px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .link-underline {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-decoration: underline;
+            letter-spacing: 1px;
+        }
+
+        /* Categories Section */
+        .categories {
+            background-color: var(--text-dark);
+            color: var(--text-light);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            padding: 60px 40px;
+        }
+
+        .category-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* GANTI GAMBAR KATEGORI DI SINI */
+        .category-card img {
+            width: 100px;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .category-info h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .category-info p {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .category-info a {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #fff;
+            padding-bottom: 2px;
+        }
+
+        /* Promo Section */
+        .promo {
+            display: flex;
+            align-items: center;
+            padding: 0 40px 0 80px;
+            background-color: #d1d1d1;
+        }
+
+        .promo-content {
+            flex: 1;
+        }
+
+        .promo-content h4 {
+            font-size: 14px;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .promo-content h2 {
+            font-size: 60px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 30px;
+        }
+
+        .promo-content p {
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+
+        /* GANTI GAMBAR PROMO DI SINI */
+        .promo-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .promo-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 60px 40px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .feature-text h4 {
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .feature-text p {
+            font-size: 11px;
+            color: #666;
+        }
+
+        /* Best Of Section */
+        .best-of {
+            padding: 60px 40px;
+        }
+
+        .best-of-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .best-of-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .best-of-header a {
+            font-size: 12px;
+            text-transform: uppercase;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .product-card {
+            position: relative;
+            background-color: #d1d1d1;
+            aspect-ratio: 3/4;
+        }
+
+        /* GANTI GAMBAR PRODUK DI SINI */
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        /* Responsive Basic */
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 20px; }
+            .logo { position: static; transform: none; }
+            .categories { grid-template-columns: 1fr; }
+            .promo { flex-direction: column; padding: 40px; }
+            .features { grid-template-columns: 1fr 1fr; }
+            .product-grid { grid-template-columns: 1fr 1fr; }
+            .hero-bg-text { font-size: 35vw; }
+            .hero-cta { flex-direction: column; align-items: flex-start; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-left">Free delivery on orders above $999</div>
+        <div class="top-bar-right">
+            <span>Download App</span>
+            <span>Track Order</span>
+            <span>Help</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="#">Men</a></li>
+            <li><a href="#">Women</a></li>
+            <li><a href="#">Kids</a></li>
+            <li><a href="#">Beauty</a></li>
+        </ul>
+        <div class="logo">GAZU</div>
+        <div class="nav-icons">
+            <a href="#">Search</a>
+            <a href="#">Login</a>
+            <a href="#">Wishlist</a>
+            <a href="#">Cart (0)</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg-text">GAZU</div>
+        
+        <div class="hero-text-left">
+            <p>FASHION<br>THAT MOVES<br>WITH YOU.</p>
+        </div>
+
+        <!-- GAMBAR MODEL UTAMA -->
+        <img src="https://placehold.co/500x800/e8e8e8/a3a3a3?text=Model+Image" alt="Fashion Model" class="hero-image">
+
+        <div class="hero-text-right">
+            <p>NEW<br>COLLECTION<br>2024</p>
+        </div>
+
+        <div class="hero-cta">
+            <button class="btn-primary">Shop Now</button>
+            <a href="#" class="link-underline">Explore New In</a>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <!-- Kategori 1 -->
+        <div class="category-card">
+            <img src="https://placehold.co/100x120/111/333?text=Men" alt="Men">
+            <div class="category-info">
+                <h3>MEN</h3>
+                <p>Elevated everyday<br>essentials.</p>
+                <a href="#">Shop Men &rarr;</a>
+            </div>
+        </div>
+        <!-- Kategori 2 -->
+        <div class="category-card">
+            <img src="https://placehold.co/100x120/111/333?text=Women" alt="Women">
+            <div class="category-info">
+                <h3>WOMEN</h3>
+                <p>Effortless style<br>for every you.</p>
+                <a href="#">Shop Women &rarr;</a>
+            </div>
+        </div>
+        <!-- Kategori 3 -->
+        <div class="category-card">
+            <img src="https://placehold.co/100x120/111/333?text=Kids" alt="Kids">
+            <div class="category-info">
+                <h3>KIDS</h3>
+                <p>Comfort meets<br>cool everyday.</p>
+                <a href="#">Shop Kids &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Section -->
+    <section class="promo">
+        <div class="promo-content">
+            <h4>NEW SEASON</h4>
+            <h2>NEW<br>VIBES</h2>
+            <p>Discover everything<br>new and now.</p>
+            <button class="btn-primary">Explore Collection</button>
+        </div>
+        <div class="promo-image">
+            <img src="https://placehold.co/600x700/d1d1d1/a3a3a3?text=Promo+Model" alt="New Vibes Model">
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature-item">
+            <div class="feature-icon">🚚</div>
+            <div class="feature-text">
+                <h4>FAST DELIVERY</h4>
+                <p>Quick & safe delivery</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon">📦</div>
+            <div class="feature-text">
+                <h4>EASY RETURNS</h4>
+                <p>Within 15 days</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon">⭐</div>
+            <div class="feature-text">
+                <h4>QUALITY ASSURED</h4>
+                <p>Best fashion, best quality</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon">🔒</div>
+            <div class="feature-text">
+                <h4>SECURE PAYMENT</h4>
+                <p>100% secure checkout</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Of Section -->
+    <section class="best-of">
+        <div class="best-of-header">
+            <h2>BEST OF GAZU</h2>
+            <a href="#">View All</a>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <button class="wishlist-btn">♡</button>
+                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Product+1" alt="Product">
+            </div>
+            <div class="product-card">
+                <button class="wishlist-btn">♡</button>
+                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Product+2" alt="Product">
+            </div>
+            <div class="product-card">
+                <button class="wishlist-btn">♡</button>
+                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Product+3" alt="Product">
+            </div>
+            <div class="product-card">
+                <button class="wishlist-btn">♡</button>
+                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Product+4" alt="Product">
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
