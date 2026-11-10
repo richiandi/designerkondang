@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio - RICHI ANDI Style</title>
+    <title>Portofolio - Minimalist Style</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,6 +11,11 @@
             --text-dark: #111;
             --text-light: #fff;
             --accent: #000;
+        }
+
+        /* Smooth Scrolling Actived Here */
+        html {
+            scroll-behavior: smooth;
         }
 
         * {
@@ -52,14 +57,18 @@
             gap: 20px;
         }
 
-        /* Navbar */
+        /* Sticky Navbar for Smooth Scroll Navigation */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 40px;
-            position: relative;
-            z-index: 10;
+            position: sticky;
+            top: 0;
+            background-color: rgba(232, 232, 232, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
         .nav-links {
@@ -68,6 +77,12 @@
             font-size: 12px;
             font-weight: 600;
             text-transform: uppercase;
+        }
+
+        /* Anchor Links Hover */
+        .nav-links a:hover {
+            border-bottom: 2px solid var(--text-dark);
+            padding-bottom: 2px;
         }
 
         .logo {
@@ -84,12 +99,13 @@
             gap: 20px;
             font-size: 12px;
             text-transform: uppercase;
+            font-weight: 600;
         }
 
         /* Hero Section */
         .hero {
             position: relative;
-            height: 80vh;
+            height: 90vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -107,13 +123,13 @@
             transform: translate(-50%, -50%);
             line-height: 0.8;
             letter-spacing: -5px;
+            white-space: nowrap;
         }
 
-        /* GANTI GAMBAR HERO DI SINI */
         .hero-image {
             position: relative;
             z-index: 2;
-            height: 100%;
+            height: 90%;
             width: auto;
             object-fit: cover;
         }
@@ -159,6 +175,11 @@
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: #333;
         }
 
         .link-underline {
@@ -169,43 +190,43 @@
             letter-spacing: 1px;
         }
 
-        /* Categories Section */
-        .categories {
+        /* Services Section (Dark Mode) */
+        .services {
             background-color: var(--text-dark);
             color: var(--text-light);
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 40px;
-            padding: 60px 40px;
+            padding: 80px 40px;
         }
 
-        .category-card {
+        .service-card {
             display: flex;
             align-items: center;
             gap: 20px;
         }
 
-        /* GANTI GAMBAR KATEGORI DI SINI */
-        .category-card img {
+        .service-card img {
             width: 100px;
             height: 120px;
             object-fit: cover;
         }
 
-        .category-info h3 {
+        .service-info h3 {
             font-size: 16px;
             margin-bottom: 10px;
             letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        .category-info p {
+        .service-info p {
             font-size: 12px;
-            color: #999;
+            color: #aaa;
             margin-bottom: 15px;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
-        .category-info a {
+        .service-info a {
             font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -213,143 +234,166 @@
             padding-bottom: 2px;
         }
 
-        /* Promo Section */
-        .promo {
+        /* Showreel / Video Section */
+        .showreel {
             display: flex;
             align-items: center;
             padding: 0 40px 0 80px;
             background-color: #d1d1d1;
+            min-height: 70vh;
         }
 
-        .promo-content {
+        .showreel-content {
             flex: 1;
+            padding-right: 40px;
         }
 
-        .promo-content h4 {
+        .showreel-content h4 {
             font-size: 14px;
             letter-spacing: 3px;
             margin-bottom: 20px;
             font-weight: 400;
         }
 
-        .promo-content h2 {
+        .showreel-content h2 {
             font-size: 60px;
             font-weight: 800;
             line-height: 1;
             margin-bottom: 30px;
+            text-transform: uppercase;
         }
 
-        .promo-content p {
+        .showreel-content p {
             font-size: 14px;
             margin-bottom: 40px;
+            line-height: 1.6;
         }
 
-        /* GANTI GAMBAR PROMO DI SINI */
-        .promo-image {
+        .showreel-video {
             flex: 1;
             display: flex;
             justify-content: center;
+            padding: 40px 0;
         }
 
-        .promo-image img {
-            max-width: 100%;
+        .showreel-video video {
+            width: 100%;
+            max-width: 600px;
             height: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
-        /* Features Section */
-        .features {
+        /* Stats/Info Section */
+        .stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             padding: 60px 40px;
             border-bottom: 1px solid #ccc;
+            background-color: var(--bg-light);
         }
 
-        .feature-item {
+        .stat-item {
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
-        .feature-icon {
-            width: 24px;
-            height: 24px;
+        .stat-icon {
+            font-size: 24px;
         }
 
-        .feature-text h4 {
+        .stat-text h4 {
             font-size: 12px;
             margin-bottom: 5px;
+            text-transform: uppercase;
         }
 
-        .feature-text p {
+        .stat-text p {
             font-size: 11px;
             color: #666;
         }
 
-        /* Best Of Section */
-        .best-of {
-            padding: 60px 40px;
+        /* Portfolio Grid Section */
+        .portfolio-grid {
+            padding: 80px 40px;
+            background-color: var(--bg-light);
         }
 
-        .best-of-header {
+        .portfolio-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 40px;
         }
 
-        .best-of-header h2 {
+        .portfolio-header h2 {
             font-size: 20px;
             font-weight: 600;
+            text-transform: uppercase;
         }
 
-        .best-of-header a {
+        .portfolio-header a {
             font-size: 12px;
             text-transform: uppercase;
             text-decoration: underline;
             font-weight: 600;
         }
 
-        .product-grid {
+        .grid-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
         }
 
-        .product-card {
+        .grid-item {
             position: relative;
             background-color: #d1d1d1;
             aspect-ratio: 3/4;
+            overflow: hidden;
+            group: hover;
         }
 
-        /* GANTI GAMBAR PRODUK DI SINI */
-        .product-card img {
+        .grid-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .grid-item:hover img {
+            transform: scale(1.05);
         }
 
-        .wishlist-btn {
+        .project-link {
             position: absolute;
             top: 15px;
             right: 15px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 20px;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 10px;
             color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* Responsive Basic */
-        @media (max-width: 768px) {
+        /* Responsive Design */
+        @media (max-width: 900px) {
             .navbar { flex-direction: column; gap: 20px; }
-            .logo { position: static; transform: none; }
-            .categories { grid-template-columns: 1fr; }
-            .promo { flex-direction: column; padding: 40px; }
-            .features { grid-template-columns: 1fr 1fr; }
-            .product-grid { grid-template-columns: 1fr 1fr; }
-            .hero-bg-text { font-size: 35vw; }
+            .logo { position: static; transform: none; margin: 10px 0;}
+            .services { grid-template-columns: 1fr; }
+            .showreel { flex-direction: column; padding: 40px; }
+            .showreel-content { padding-right: 0; text-align: center; }
+            .stats { grid-template-columns: 1fr 1fr; }
+            .grid-container { grid-template-columns: 1fr 1fr; }
+            .hero-bg-text { font-size: 30vw; }
             .hero-cta { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .hero-text-right { display: none; }
+        }
+        @media (max-width: 600px) {
+            .grid-container { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -357,152 +401,160 @@
 
     <!-- Top Bar -->
     <div class="top-bar">
-        <div class="top-bar-left">Free delivery on orders above $999</div>
+        <div class="top-bar-left">Available for Freelance Projects</div>
         <div class="top-bar-right">
-            <span>Download App</span>
-            <span>Track Order</span>
-            <span>Help</span>
+            <a href="#">Download CV</a>
+            <a href="#contact">Contact Me</a>
         </div>
     </div>
 
-    <!-- Navigation -->
+    <!-- Navigation (Sticky & Smooth Scroll Links) -->
     <nav class="navbar">
         <ul class="nav-links">
-            <li><a href="#">Men</a></li>
-            <li><a href="#">Women</a></li>
-            <li><a href="#">Kids</a></li>
-            <li><a href="#">Beauty</a></li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#showreel">Showreel</a></li>
+            <li><a href="#portfolio">Work</a></li>
         </ul>
-        <div class="logo">RICHI ANDI</div>
+        <div class="logo">PORTO.</div>
         <div class="nav-icons">
-            <a href="#">Search</a>
-            <a href="#">Login</a>
-            <a href="#">Wishlist</a>
-            <a href="#">Cart (0)</a>
+            <a href="https://github.com" target="_blank">GitHub</a>
+            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg-text">RICHI ANDI</div>
+    <section id="home" class="hero">
+        <!-- Text Background Besar -->
+        <div class="hero-bg-text">HELLO</div>
         
         <div class="hero-text-left">
-            <p>FASHION<br>THAT MOVES<br>WITH YOU.</p>
+            <p>DESIGN<br>THAT SPEAKS<br>FOR ITSELF.</p>
         </div>
 
-        <!-- GAMBAR MODEL UTAMA -->
-        <img src="https://placehold.co/500x800/e8e8e8/a3a3a3?text=Model+Image" alt="Fashion Model" class="hero-image">
+        <!-- GAMBAR DUMMY HERO -->
+        <img src="https://placehold.co/600x900/d1d1d1/a3a3a3?text=Foto+Profil" alt="Profile Image" class="hero-image">
 
         <div class="hero-text-right">
-            <p>NEW<br>COLLECTION<br>2024</p>
+            <p>SELECTED<br>WORKS<br>2024</p>
         </div>
 
         <div class="hero-cta">
-            <button class="btn-primary">Shop Now</button>
-            <a href="#" class="link-underline">Explore New In</a>
+            <a href="#portfolio"><button class="btn-primary">View My Work</button></a>
+            <a href="#services" class="link-underline">Explore Services</a>
         </div>
     </section>
 
-    <!-- Categories Section -->
-    <section class="categories">
-        <!-- Kategori 1 -->
-        <div class="category-card">
-            <img src="https://placehold.co/100x120/111/333?text=Men" alt="Men">
-            <div class="category-info">
-                <h3>MEN</h3>
-                <p>Elevated everyday<br>essentials.</p>
-                <a href="#">Shop Men &rarr;</a>
+    <!-- Services Section (Mirip Kategori Hitam) -->
+    <section id="services" class="services">
+        <div class="service-card">
+            <!-- GAMBAR DUMMY SERVICES -->
+            <img src="https://placehold.co/100x120/333/666?text=UI" alt="UI Design">
+            <div class="service-info">
+                <h3>UI/UX DESIGN</h3>
+                <p>Creating intuitive and<br>beautiful interfaces.</p>
+                <a href="#portfolio">See Details &rarr;</a>
             </div>
         </div>
-        <!-- Kategori 2 -->
-        <div class="category-card">
-            <img src="https://placehold.co/100x120/111/333?text=Women" alt="Women">
-            <div class="category-info">
-                <h3>WOMEN</h3>
-                <p>Effortless style<br>for every you.</p>
-                <a href="#">Shop Women &rarr;</a>
+        <div class="service-card">
+            <img src="https://placehold.co/100x120/333/666?text=WEB" alt="Web Dev">
+            <div class="service-info">
+                <h3>WEB DEV</h3>
+                <p>Responsive and smooth<br>web experiences.</p>
+                <a href="#portfolio">See Details &rarr;</a>
             </div>
         </div>
-        <!-- Kategori 3 -->
-        <div class="category-card">
-            <img src="https://placehold.co/100x120/111/333?text=Kids" alt="Kids">
-            <div class="category-info">
-                <h3>KIDS</h3>
-                <p>Comfort meets<br>cool everyday.</p>
-                <a href="#">Shop Kids &rarr;</a>
+        <div class="service-card">
+            <img src="https://placehold.co/100x120/333/666?text=ART" alt="Branding">
+            <div class="service-info">
+                <h3>BRANDING</h3>
+                <p>Crafting unique<br>visual identities.</p>
+                <a href="#portfolio">See Details &rarr;</a>
             </div>
         </div>
     </section>
 
-    <!-- Promo Section -->
-    <section class="promo">
-        <div class="promo-content">
-            <h4>NEW SEASON</h4>
-            <h2>NEW<br>VIBES</h2>
-            <p>Discover everything<br>new and now.</p>
-            <button class="btn-primary">Explore Collection</button>
+    <!-- Showreel Section (Dengan Dummy Video) -->
+    <section id="showreel" class="showreel">
+        <div class="showreel-content">
+            <h4>FEATURED PROJECT</h4>
+            <h2>VIDEO<br>SHOWREEL</h2>
+            <p>A quick glimpse into my creative process, motion graphics, and recent development projects. Watch the highlight reel.</p>
+            <a href="https://github.com"><button class="btn-primary">Visit GitHub</button></a>
         </div>
-        <div class="promo-image">
-            <img src="https://placehold.co/600x700/d1d1d1/a3a3a3?text=Promo+Model" alt="New Vibes Model">
+        <div class="showreel-video">
+            <!-- VIDEO DUMMY -->
+            <video controls autoplay loop muted>
+                <!-- Sumber video dummy dari W3Schools -->
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                Browser Anda tidak mendukung tag video.
+            </video>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
-        <div class="feature-item">
-            <div class="feature-icon">🚚</div>
-            <div class="feature-text">
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stat-item">
+            <div class="stat-icon">⚡</div>
+            <div class="stat-text">
                 <h4>FAST DELIVERY</h4>
-                <p>Quick & safe delivery</p>
+                <p>On-time project handover</p>
             </div>
         </div>
-        <div class="feature-item">
-            <div class="feature-icon">📦</div>
-            <div class="feature-text">
-                <h4>EASY RETURNS</h4>
-                <p>Within 15 days</p>
+        <div class="stat-item">
+            <div class="stat-icon">💻</div>
+            <div class="stat-text">
+                <h4>CLEAN CODE</h4>
+                <p>Maintainable & structured</p>
             </div>
         </div>
-        <div class="feature-item">
-            <div class="feature-icon">⭐</div>
-            <div class="feature-text">
-                <h4>QUALITY ASSURED</h4>
-                <p>Best fashion, best quality</p>
+        <div class="stat-item">
+            <div class="stat-icon">✨</div>
+            <div class="stat-text">
+                <h4>PIXEL PERFECT</h4>
+                <p>Attention to visual details</p>
             </div>
         </div>
-        <div class="feature-item">
-            <div class="feature-icon">🔒</div>
-            <div class="feature-text">
-                <h4>SECURE PAYMENT</h4>
-                <p>100% secure checkout</p>
+        <div class="stat-item">
+            <div class="stat-icon">🤝</div>
+            <div class="stat-text">
+                <h4>COMMUNICATION</h4>
+                <p>Transparent work process</p>
             </div>
         </div>
     </section>
 
-    <!-- Best Of Section -->
-    <section class="best-of">
-        <div class="best-of-header">
-            <h2>BEST OF RICHI ANDI</h2>
-            <a href="#">View All</a>
+    <!-- Portfolio Grid Section -->
+    <section id="portfolio" class="portfolio-grid">
+        <div class="portfolio-header">
+            <h2>SELECTED WORKS</h2>
+            <a href="https://github.com" target="_blank">View All on GitHub</a>
         </div>
-        <div class="product-grid">
-            <div class="product-card">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Product+1" alt="Product">
+        <div class="grid-container">
+            <!-- GAMBAR DUMMY PORTFOLIO -->
+            <div class="grid-item">
+                <a href="#" class="project-link">View Case</a>
+                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Project+1" alt="Project 1">
             </div>
-            <div class="product-card">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Product+2" alt="Product">
+            <div class="grid-item">
+                <a href="#" class="project-link">View Case</a>
+                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Project+2" alt="Project 2">
             </div>
-            <div class="product-card">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Product+3" alt="Product">
+            <div class="grid-item">
+                <a href="#" class="project-link">View Case</a>
+                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Project+3" alt="Project 3">
             </div>
-            <div class="product-card">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Product+4" alt="Product">
+            <div class="grid-item">
+                <a href="#" class="project-link">View Case</a>
+                <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Project+4" alt="Project 4">
             </div>
         </div>
+    </section>
+
+    <!-- Simple Contact Footer -->
+    <section id="contact" style="padding: 40px; text-align: center; background: #111; color: #fff;">
+        <h2 style="font-size: 24px; margin-bottom: 20px;">Let's work together.</h2>
+        <a href="mailto:hello@example.com" style="text-decoration: underline; font-size: 14px;">hello@example.com</a>
     </section>
 
 </body>
