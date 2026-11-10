@@ -13,7 +13,7 @@
             --accent: #000;
         }
 
-        /* Smooth Scrolling Actived Here */
+        /* Cadangan Smooth Scrolling dari CSS */
         html {
             scroll-behavior: smooth;
         }
@@ -57,7 +57,7 @@
             gap: 20px;
         }
 
-        /* Sticky Navbar for Smooth Scroll Navigation */
+        /* Sticky Navbar */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -79,7 +79,6 @@
             text-transform: uppercase;
         }
 
-        /* Anchor Links Hover */
         .nav-links a:hover {
             border-bottom: 2px solid var(--text-dark);
             padding-bottom: 2px;
@@ -190,7 +189,7 @@
             letter-spacing: 1px;
         }
 
-        /* Services Section (Dark Mode) */
+        /* Services Section */
         .services {
             background-color: var(--text-dark);
             color: var(--text-light);
@@ -234,7 +233,7 @@
             padding-bottom: 2px;
         }
 
-        /* Showreel / Video Section */
+        /* Showreel Section */
         .showreel {
             display: flex;
             align-items: center;
@@ -283,7 +282,7 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
-        /* Stats/Info Section */
+        /* Stats Section */
         .stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -351,7 +350,6 @@
             background-color: #d1d1d1;
             aspect-ratio: 3/4;
             overflow: hidden;
-            group: hover;
         }
 
         .grid-item img {
@@ -376,6 +374,7 @@
             color: #fff;
             text-transform: uppercase;
             letter-spacing: 1px;
+            z-index: 2;
         }
 
         /* Responsive Design */
@@ -408,7 +407,7 @@
         </div>
     </div>
 
-    <!-- Navigation (Sticky & Smooth Scroll Links) -->
+    <!-- Navigation -->
     <nav class="navbar">
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
@@ -425,14 +424,12 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <!-- Text Background Besar -->
         <div class="hero-bg-text">HELLO</div>
         
         <div class="hero-text-left">
             <p>DESIGN<br>THAT SPEAKS<br>FOR ITSELF.</p>
         </div>
 
-        <!-- GAMBAR DUMMY HERO -->
         <img src="https://placehold.co/600x900/d1d1d1/a3a3a3?text=Foto+Profil" alt="Profile Image" class="hero-image">
 
         <div class="hero-text-right">
@@ -445,10 +442,9 @@
         </div>
     </section>
 
-    <!-- Services Section (Mirip Kategori Hitam) -->
+    <!-- Services Section -->
     <section id="services" class="services">
         <div class="service-card">
-            <!-- GAMBAR DUMMY SERVICES -->
             <img src="https://placehold.co/100x120/333/666?text=UI" alt="UI Design">
             <div class="service-info">
                 <h3>UI/UX DESIGN</h3>
@@ -474,18 +470,16 @@
         </div>
     </section>
 
-    <!-- Showreel Section (Dengan Dummy Video) -->
+    <!-- Showreel Section -->
     <section id="showreel" class="showreel">
         <div class="showreel-content">
             <h4>FEATURED PROJECT</h4>
             <h2>VIDEO<br>SHOWREEL</h2>
             <p>A quick glimpse into my creative process, motion graphics, and recent development projects. Watch the highlight reel.</p>
-            <a href="https://github.com"><button class="btn-primary">Visit GitHub</button></a>
+            <a href="https://github.com" target="_blank"><button class="btn-primary">Visit GitHub</button></a>
         </div>
         <div class="showreel-video">
-            <!-- VIDEO DUMMY -->
             <video controls autoplay loop muted>
-                <!-- Sumber video dummy dari W3Schools -->
                 <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
                 Browser Anda tidak mendukung tag video.
             </video>
@@ -531,7 +525,6 @@
             <a href="https://github.com" target="_blank">View All on GitHub</a>
         </div>
         <div class="grid-container">
-            <!-- GAMBAR DUMMY PORTFOLIO -->
             <div class="grid-item">
                 <a href="#" class="project-link">View Case</a>
                 <img src="https://placehold.co/300x400/e8e8e8/a3a3a3?text=Project+1" alt="Project 1">
@@ -551,11 +544,35 @@
         </div>
     </section>
 
-    <!-- Simple Contact Footer -->
-    <section id="contact" style="padding: 40px; text-align: center; background: #111; color: #fff;">
-        <h2 style="font-size: 24px; margin-bottom: 20px;">Let's work together.</h2>
-        <a href="mailto:hello@example.com" style="text-decoration: underline; font-size: 14px;">hello@example.com</a>
+    <!-- Contact Footer -->
+    <section id="contact" style="padding: 60px 40px; text-align: center; background: #111; color: #fff;">
+        <h2 style="font-size: 28px; margin-bottom: 20px; font-weight: 800; letter-spacing: 1px;">LET'S WORK TOGETHER.</h2>
+        <a href="mailto:hello@example.com" style="text-decoration: underline; font-size: 16px; letter-spacing: 1px;">hello@example.com</a>
     </section>
 
+    <!-- JavaScript for Perfect Smooth Scrolling -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+  
+                    window.scrollTo({
+                         top: offsetPosition,
+                         behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
