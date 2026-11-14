@@ -142,7 +142,6 @@
         }
 
         .panel-left { left: 10%; top: 45%; transform: translateY(-50%); }
-        .panel-right { right: 10%; top: 45%; transform: translateY(-50%); }
 
         .tag-blue {
             display: inline-block;
@@ -158,19 +157,6 @@
         .glass-panel p { font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; color: #333; }
         .glass-panel .link-btn { color: #0071e3; text-decoration: none; font-weight: 600; font-size: 0.95rem; }
         .glass-panel .link-btn:hover { text-decoration: underline; }
-        .glass-panel h3 { margin: 0 0 16px 0; font-size: 1.1rem; text-align: center;}
-        
-        .skill-pill {
-            background: rgba(255,255,255,0.6);
-            padding: 8px 16px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-            text-align: center;
-            font-weight: 500;
-            color: #333;
-            border: 1px solid rgba(255,255,255,0.8);
-        }
 
         /* --- MAC OS DOCK --- */
         .mac-dock {
@@ -239,7 +225,7 @@
         .card:hover { transform: translateY(-8px); }
 
         /* =========================================================
-           DESIGN PORTFOLIO: POLA BATU BATA ASIMETRIS & SCROLL HORIZONTAL
+           DESIGN PORTFOLIO: INFINITE LOOP + AUTO + MANUAL DRAG/SWIPE
            ========================================================= */
         #design {
             width: 100vw;
@@ -251,25 +237,29 @@
             align-items: center;
         }
 
-        #design .section-title { margin-bottom: 60px; }
+        #design .section-title { margin-bottom: 10px; }
 
         .design-marquee-wrapper {
             width: 100%;
+            overflow-x: hidden;
             display: flex;
-            overflow: visible;
+            cursor: grab;
+            user-select: none;
+            padding: 20px 0;
+            position: relative;
         }
+        .design-marquee-wrapper:active { cursor: grabbing; }
 
         .design-track {
             display: flex;
             gap: 20px;
             width: max-content;
-            will-change: transform;
-            transition: transform 0.1s ease-out;
             padding: 0 5vw;
+            will-change: transform;
         }
 
         /* Grup Puzzle Batu Bata */
-        .dsgn-group { display: flex; gap: 20px; align-items: center; }
+        .dsgn-group { display: flex; gap: 20px; align-items: center; flex-shrink: 0; }
         .dsgn-col { display: flex; flex-direction: column; gap: 20px; }
         .dsgn-row-inner { display: flex; gap: 20px; }
 
@@ -278,17 +268,17 @@
             background-color: #0c0c0c;
             border-radius: 20px;
             position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, z-index 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255,255,255,0.3);
-            font-weight: bold;
+            cursor: pointer;
+            flex-shrink: 0;
         }
 
-        .dsgn-box:hover { transform: scale(1.02); z-index: 10; }
+        .dsgn-box:hover { transform: scale(1.03); box-shadow: 0 20px 40px rgba(0,0,0,0.15); z-index: 10; }
 
         /* Variasi 10 Konten Ukuran Asimetris (Pola Batu Bata) */
         .box-1 { width: 260px; height: 500px; } 
@@ -306,29 +296,123 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.8;
-            transition: transform 0.4s ease, opacity 0.4s ease;
+            opacity: 0.85;
+            pointer-events: none;
+            transition: transform 0.5s ease, opacity 0.5s ease;
         }
-        .dsgn-box:hover img { opacity: 1; transform: scale(1.05); }
+        .dsgn-box:hover img { opacity: 1; transform: scale(1.06); }
 
         /* =========================================
-           VIDEO PORTFOLIO (16:9 & 9:16 ONLY)
+           POP-UP / LIGHTBOX STYLING (SMOOTH ANIMATION)
+           ========================================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            position: relative;
+            background: #1c1c1e;
+            border-radius: 28px;
+            padding: 20px;
+            max-width: 90vw;
+            max-height: 90vh;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            transform: scale(0.8);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content img {
+            max-width: 80vw;
+            max-height: 70vh;
+            border-radius: 16px;
+            object-fit: contain;
+        }
+
+        .modal-title {
+            color: #ffffff;
+            margin-top: 16px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #ffffff;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* =========================================
+           VIDEO PORTFOLIO: INFINITE LOOP + AUTO + MANUAL DRAG/SWIPE
            ========================================= */
         #video {
-            padding: 120px 24px;
+            width: 100vw;
+            padding: 120px 0;
             background-color: var(--bg-color);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .video-gallery {
-            display: flex;
-            flex-wrap: wrap; 
-            justify-content: center;
-            gap: 24px;
+        #video .section-title { margin-bottom: 10px; }
+
+        .video-marquee-wrapper {
             width: 100%;
-            max-width: 1080px;
+            overflow-x: hidden;
+            display: flex;
+            cursor: grab;
+            user-select: none;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .video-marquee-wrapper:active { cursor: grabbing; }
+
+        .video-marquee-track {
+            display: flex;
+            gap: 24px;
+            width: max-content;
+            padding: 0 5vw;
+            will-change: transform;
         }
 
         .vid-card {
@@ -341,6 +425,7 @@
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
             cursor: pointer;
             border: 1px solid rgba(255,255,255,0.1);
+            flex-shrink: 0;
         }
 
         .vid-card:hover { transform: scale(1.03) translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
@@ -353,6 +438,7 @@
             top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover; z-index: 1; transition: transform 0.6s ease;
             background-color: #2c2c2e; 
+            pointer-events: none;
         }
 
         .vid-card:hover .vid-thumb { transform: scale(1.05); }
@@ -362,6 +448,7 @@
             height: 60%; padding: 20px;
             background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
             color: white; display: flex; flex-direction: column; justify-content: flex-end; z-index: 2;
+            pointer-events: none;
         }
 
         .vid-tag {
@@ -388,7 +475,7 @@
             .float-2 { width: 45px; height: 45px; right: 10%; top: 15%; }
             .float-3 { width: 55px; height: 55px; right: 15%; top: 55%; }
             
-            .panel-left, .panel-right { position: relative; left: 0; right: 0; top: 0; transform: none; margin: 0 auto 20px auto; width: 85%; max-width: none; }
+            .panel-left { position: relative; left: 0; right: 0; top: 0; transform: none; margin: 0 auto 20px auto; width: 85%; max-width: none; }
             .mac-dock { bottom: 20px; padding: 8px 12px; gap: 8px; }
             .dock-item { width: 40px; height: 40px; font-size: 1rem; }
 
@@ -396,7 +483,6 @@
             .dsgn-group { gap: 12px; }
             .dsgn-col { gap: 12px; }
             .dsgn-row-inner { gap: 12px; }
-            .design-track { gap: 12px; }
             
             .box-1 { width: 160px; height: 312px; }
             .box-2 { width: 272px; height: 150px; }
@@ -409,10 +495,7 @@
             .box-9 { width: 110px; height: 150px; }
             .box-10 { width: 220px; height: 312px; }
 
-            .video-gallery { gap: 16px; }
-            .vid-card { height: auto; }
-            .vid-16-9 { width: 100%; }
-            .vid-9-16 { width: calc(50% - 8px); }
+            .vid-card { height: 220px; }
         }
     </style>
 </head>
@@ -449,15 +532,6 @@
             <a href="#design" class="link-btn">Lihat karya saya &rarr;</a>
         </div>
 
-        <div class="glass-panel panel-right">
-            <h3>Keahlian</h3>
-            <div class="skill-pill">★ Desain Grafis</div>
-            <div class="skill-pill">★ Video Editing</div>
-            <div class="skill-pill">★ E-Commerce Opt.</div>
-            <div class="skill-pill">★ Tipografi</div>
-            <div class="skill-pill">★ Visual Identity</div>
-        </div>
-
         <div class="mac-dock">
             <div class="dock-item ic-ps" data-title="Photoshop">Ps</div>
             <div class="dock-item ic-ai" data-title="Illustrator">Ai</div>
@@ -484,57 +558,101 @@
         </div>
     </section>
 
-    <!-- 3. BAGIAN DESIGN (POLA BATU BATA 10 KONTEN + PARALLAX SCROLL ATAS/BAWAH) -->
+    <!-- 3. BAGIAN DESIGN (INFINITE LOOP + AUTO + MANUAL DRAG + POP-UP) -->
     <section id="design">
         <h2 class="section-title">Design Portfolio</h2>
-        <p class="section-subtitle" style="margin-bottom: 40px;">Karya grafis, identitas visual, dan layout komersial.</p>
+        <p class="section-subtitle" style="margin-bottom: 20px;">Infinite loop otomatis, bisa digeser manual pakai jari/mouse, klik untuk memperbesar.</p>
         
-        <div class="design-marquee-wrapper">
-            <div class="design-track" id="dsgn-track">
+        <div class="design-marquee-wrapper" id="design-slider">
+            <div class="design-track" id="design-track">
                 
-                <!-- Grup Desain 1 (Konten 1 sampai 5: Pola Batu Bata Kiri) -->
+                <!-- Set 1 (Konten 1 sampai 10) -->
                 <div class="dsgn-group">
                     <div class="dsgn-box box-1">
-                        <img src="https://via.placeholder.com/260x500/0c0c0c/ffffff?text=Design+1" alt="Design 1">
+                        <img src="https://via.placeholder.com/260x500/111113/ffffff?text=Design+1" data-detail="https://via.placeholder.com/800x1200/111113/ffffff?text=Design+1+Detail" alt="Design 1">
                     </div>
                     <div class="dsgn-col">
                         <div class="dsgn-box box-2">
-                            <img src="https://via.placeholder.com/460x240/0c0c0c/ffffff?text=Design+2" alt="Design 2">
+                            <img src="https://via.placeholder.com/460x240/161619/ffffff?text=Design+2" data-detail="https://via.placeholder.com/1200x800/161619/ffffff?text=Design+2+Detail" alt="Design 2">
                         </div>
                         <div class="dsgn-row-inner">
                             <div class="dsgn-box box-3">
-                                <img src="https://via.placeholder.com/280x240/0c0c0c/ffffff?text=Design+3" alt="Design 3">
+                                <img src="https://via.placeholder.com/280x240/1c1c21/ffffff?text=Design+3" data-detail="https://via.placeholder.com/800x800/1c1c21/ffffff?text=Design+3+Detail" alt="Design 3">
                             </div>
                             <div class="dsgn-box box-4">
-                                <img src="https://via.placeholder.com/160x240/0c0c0c/ffffff?text=Design+4" alt="Design 4">
+                                <img src="https://via.placeholder.com/160x240/222227/ffffff?text=Design+4" data-detail="https://via.placeholder.com/800x1200/222227/ffffff?text=Design+4+Detail" alt="Design 4">
                             </div>
                         </div>
                     </div>
                     <div class="dsgn-box box-5">
-                        <img src="https://via.placeholder.com/400x500/0c0c0c/ffffff?text=Design+5" alt="Design 5">
+                        <img src="https://via.placeholder.com/400x500/28282e/ffffff?text=Design+5" data-detail="https://via.placeholder.com/800x1200/28282e/ffffff?text=Design+5+Detail" alt="Design 5">
                     </div>
                 </div>
 
-                <!-- Grup Desain 2 (Konten 6 sampai 10: Pola Batu Bata Kanan) -->
                 <div class="dsgn-group">
                     <div class="dsgn-box box-6">
-                        <img src="https://via.placeholder.com/340x500/0c0c0c/ffffff?text=Design+6" alt="Design 6">
+                        <img src="https://via.placeholder.com/340x500/2e2e35/ffffff?text=Design+6" data-detail="https://via.placeholder.com/800x1200/2e2e35/ffffff?text=Design+6+Detail" alt="Design 6">
                     </div>
                     <div class="dsgn-col">
                         <div class="dsgn-box box-7">
-                            <img src="https://via.placeholder.com/450x240/0c0c0c/ffffff?text=Design+7" alt="Design 7">
+                            <img src="https://via.placeholder.com/450x240/34343d/ffffff?text=Design+7" data-detail="https://via.placeholder.com/1200x800/34343d/ffffff?text=Design+7+Detail" alt="Design 7">
                         </div>
                         <div class="dsgn-row-inner">
                             <div class="dsgn-box box-8">
-                                <img src="https://via.placeholder.com/250x240/0c0c0c/ffffff?text=Design+8" alt="Design 8">
+                                <img src="https://via.placeholder.com/250x240/3a3a44/ffffff?text=Design+8" data-detail="https://via.placeholder.com/800x800/3a3a44/ffffff?text=Design+8+Detail" alt="Design 8">
                             </div>
                             <div class="dsgn-box box-9">
-                                <img src="https://via.placeholder.com/180x240/0c0c0c/ffffff?text=Design+9" alt="Design 9">
+                                <img src="https://via.placeholder.com/180x240/40404c/ffffff?text=Design+9" data-detail="https://via.placeholder.com/800x1200/40404c/ffffff?text=Design+9+Detail" alt="Design 9">
                             </div>
                         </div>
                     </div>
                     <div class="dsgn-box box-10">
-                        <img src="https://via.placeholder.com/350x500/0c0c0c/ffffff?text=Design+10" alt="Design 10">
+                        <img src="https://via.placeholder.com/350x500/464654/ffffff?text=Design+10" data-detail="https://via.placeholder.com/800x1200/464654/ffffff?text=Design+10+Detail" alt="Design 10">
+                    </div>
+                </div>
+
+                <!-- Set 2 (Duplikasi untuk Looping Mulus) -->
+                <div class="dsgn-group">
+                    <div class="dsgn-box box-1">
+                        <img src="https://via.placeholder.com/260x500/111113/ffffff?text=Design+1" data-detail="https://via.placeholder.com/800x1200/111113/ffffff?text=Design+1+Detail" alt="Design 1">
+                    </div>
+                    <div class="dsgn-col">
+                        <div class="dsgn-box box-2">
+                            <img src="https://via.placeholder.com/460x240/161619/ffffff?text=Design+2" data-detail="https://via.placeholder.com/1200x800/161619/ffffff?text=Design+2+Detail" alt="Design 2">
+                        </div>
+                        <div class="dsgn-row-inner">
+                            <div class="dsgn-box box-3">
+                                <img src="https://via.placeholder.com/280x240/1c1c21/ffffff?text=Design+3" data-detail="https://via.placeholder.com/800x800/1c1c21/ffffff?text=Design+3+Detail" alt="Design 3">
+                            </div>
+                            <div class="dsgn-box box-4">
+                                <img src="https://via.placeholder.com/160x240/222227/ffffff?text=Design+4" data-detail="https://via.placeholder.com/800x1200/222227/ffffff?text=Design+4+Detail" alt="Design 4">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dsgn-box box-5">
+                        <img src="https://via.placeholder.com/400x500/28282e/ffffff?text=Design+5" data-detail="https://via.placeholder.com/800x1200/28282e/ffffff?text=Design+5+Detail" alt="Design 5">
+                    </div>
+                </div>
+
+                <div class="dsgn-group">
+                    <div class="dsgn-box box-6">
+                        <img src="https://via.placeholder.com/340x500/2e2e35/ffffff?text=Design+6" data-detail="https://via.placeholder.com/800x1200/2e2e35/ffffff?text=Design+6+Detail" alt="Design 6">
+                    </div>
+                    <div class="dsgn-col">
+                        <div class="dsgn-box box-7">
+                            <img src="https://via.placeholder.com/450x240/34343d/ffffff?text=Design+7" data-detail="https://via.placeholder.com/1200x800/34343d/ffffff?text=Design+7+Detail" alt="Design 7">
+                        </div>
+                        <div class="dsgn-row-inner">
+                            <div class="dsgn-box box-8">
+                                <img src="https://via.placeholder.com/250x240/3a3a44/ffffff?text=Design+8" data-detail="https://via.placeholder.com/800x800/3a3a44/ffffff?text=Design+8+Detail" alt="Design 8">
+                            </div>
+                            <div class="dsgn-box box-9">
+                                <img src="https://via.placeholder.com/180x240/40404c/ffffff?text=Design+9" data-detail="https://via.placeholder.com/800x1200/40404c/ffffff?text=Design+9+Detail" alt="Design 9">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dsgn-box box-10">
+                        <img src="https://via.placeholder.com/350x500/464654/ffffff?text=Design+10" data-detail="https://via.placeholder.com/800x1200/464654/ffffff?text=Design+10+Detail" alt="Design 10">
                     </div>
                 </div>
 
@@ -542,36 +660,76 @@
         </div>
     </section>
 
-    <!-- 4. BAGIAN VIDEO (16:9 & 9:16 ONLY) -->
+    <!-- MODAL POP-UP (LIGHTBOX) -->
+    <div class="modal-overlay" id="imageModal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <img id="modalImg" src="" alt="Detail Gambar">
+            <div class="modal-title" id="modalTitle">Judul Proyek</div>
+        </div>
+    </div>
+
+    <!-- 4. BAGIAN VIDEO (INFINITE LOOP + AUTO + MANUAL DRAG + POP-UP) -->
     <section id="video">
-        <div class="container">
-            <h2 class="section-title">Video Projects</h2>
-            <p class="section-subtitle" style="margin-bottom: 40px;">Eksplorasi visual dinamis dalam format komersial.</p>
-            
-            <div class="video-gallery">
-                <div class="vid-card vid-16-9">
-                    <img src="https://via.placeholder.com/1920x1080/1a1a1c/ffffff?text=Video+16:9" alt="Thumbnail" class="vid-thumb">
+        <h2 class="section-title">Video Projects</h2>
+        <p class="section-subtitle" style="margin-bottom: 20px;">Infinite loop otomatis, bisa digeser manual, klik untuk melihat detail.</p>
+        
+        <div class="video-marquee-wrapper" id="video-slider">
+            <div class="video-marquee-track" id="video-track">
+                <!-- Set 1 -->
+                <div class="vid-card vid-16-9" data-detail="https://via.placeholder.com/1920x1080/1a1a1c/ffffff?text=Video+16:9+Detail" data-title="Commercial Showreel">
+                    <img src="https://via.placeholder.com/1920x1080/1a1a1c/ffffff?text=Video+16:9+1" alt="Thumbnail" class="vid-thumb">
                     <div class="vid-overlay">
                         <span class="vid-tag">YOUTUBE / TVC</span>
                         <h3>Commercial Showreel</h3>
                     </div>
                 </div>
-                <div class="vid-card vid-9-16">
-                    <img src="https://via.placeholder.com/1080x1920/1a1a1c/ffffff?text=Video+9:16" alt="Thumbnail" class="vid-thumb">
+                <div class="vid-card vid-9-16" data-detail="https://via.placeholder.com/1080x1920/1a1a1c/ffffff?text=Video+9:16+Detail" data-title="Product Hacks">
+                    <img src="https://via.placeholder.com/1080x1920/1a1a1c/ffffff?text=Video+9:16+1" alt="Thumbnail" class="vid-thumb">
                     <div class="vid-overlay">
                         <span class="vid-tag">TIKTOK</span>
                         <h3>Product Hacks</h3>
                     </div>
                 </div>
-                <div class="vid-card vid-9-16">
-                    <img src="https://via.placeholder.com/1080x1920/1a1a1c/ffffff?text=Video+9:16" alt="Thumbnail" class="vid-thumb">
+                <div class="vid-card vid-9-16" data-detail="https://via.placeholder.com/1080x1920/1a1a1c/ffffff?text=Video+9:16+Detail" data-title="Behind The Scenes">
+                    <img src="https://via.placeholder.com/1080x1920/1a1a1c/ffffff?text=Video+9:16+2" alt="Thumbnail" class="vid-thumb">
                     <div class="vid-overlay">
                         <span class="vid-tag">REELS</span>
                         <h3>Behind The Scenes</h3>
                     </div>
                 </div>
-                <div class="vid-card vid-16-9">
-                    <img src="https://via.placeholder.com/1920x1080/1a1a1c/ffffff?text=Video+16:9" alt="Thumbnail" class="vid-thumb">
+                <div class="vid-card vid-16-9" data-detail="https://via.placeholder.com/1920x1080/1a1a1c/ffffff?text=Video+16:9+Detail" data-title="Exhibition Highlight">
+                    <img src="https://via.placeholder.com/1920x1080/1a1a1c/ffffff?text=Video+16:9+2" alt="Thumbnail" class="vid-thumb">
+                    <div class="vid-overlay">
+                        <span class="vid-tag">EVENT</span>
+                        <h3>Exhibition Highlight</h3>
+                    </div>
+                </div>
+
+                <!-- Set 2 (Duplikasi untuk Looping Mulus) -->
+                <div class="vid-card vid-16-9" data-detail="https://via.placeholder.com/1920x1080/1a1a1c/ffffff?text=Video+16:9+Detail" data-title="Commercial Showreel">
+                    <img src="https://via.placeholder.com/1920x1080/1a1a1c/ffffff?text=Video+16:9+1" alt="Thumbnail" class="vid-thumb">
+                    <div class="vid-overlay">
+                        <span class="vid-tag">YOUTUBE / TVC</span>
+                        <h3>Commercial Showreel</h3>
+                    </div>
+                </div>
+                <div class="vid-card vid-9-16" data-detail="https://via.placeholder.com/1080x1920/1a1a1c/ffffff?text=Video+9:16+Detail" data-title="Product Hacks">
+                    <img src="https://via.placeholder.com/1080x1920/1a1a1c/ffffff?text=Video+9:16+1" alt="Thumbnail" class="vid-thumb">
+                    <div class="vid-overlay">
+                        <span class="vid-tag">TIKTOK</span>
+                        <h3>Product Hacks</h3>
+                    </div>
+                </div>
+                <div class="vid-card vid-9-16" data-detail="https://via.placeholder.com/1080x1920/1a1a1c/ffffff?text=Video+9:16+Detail" data-title="Behind The Scenes">
+                    <img src="https://via.placeholder.com/1080x1920/1a1a1c/ffffff?text=Video+9:16+2" alt="Thumbnail" class="vid-thumb">
+                    <div class="vid-overlay">
+                        <span class="vid-tag">REELS</span>
+                        <h3>Behind The Scenes</h3>
+                    </div>
+                </div>
+                <div class="vid-card vid-16-9" data-detail="https://via.placeholder.com/1920x1080/1a1a1c/ffffff?text=Video+16:9+Detail" data-title="Exhibition Highlight">
+                    <img src="https://via.placeholder.com/1920x1080/1a1a1c/ffffff?text=Video+16:9+2" alt="Thumbnail" class="vid-thumb">
                     <div class="vid-overlay">
                         <span class="vid-tag">EVENT</span>
                         <h3>Exhibition Highlight</h3>
@@ -603,7 +761,7 @@
 
     <!-- --- JAVASCRIPT --- -->
     <script>
-        // 1. Script Smooth Scroll Navigasi
+        // 1. Smooth Scroll Navigasi
         document.querySelectorAll('nav a, .link-btn').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -639,19 +797,145 @@
             });
         });
 
-        // 2. Script Parallax Horizontal (Geser Kiri/Kanan saat Scroll Atas/Bawah)
-        window.addEventListener('scroll', function() {
-            const dsgnSec = document.getElementById('design');
-            const track = document.getElementById('dsgn-track');
+        // 2. Fungsi Infinity Loop + Auto Scroll + Manual Drag/Swipe + Safe Click Popup
+        function setupInfiniteSlider(wrapperId, speed = 0.5) {
+            const wrapper = document.getElementById(wrapperId);
+            if (!wrapper) return;
+            const track = wrapper.firstElementChild;
             
-            if (dsgnSec && track) {
-                const rect = dsgnSec.getBoundingClientRect();
-                const distanceFromCenter = window.innerHeight / 2 - (rect.top + rect.height / 2);
-                
-                // Saat scroll ke bawah (distanceFromCenter berubah), track bergeser ke kiri/kanan secara mulus
-                const move = distanceFromCenter * 0.5;
-                
-                track.style.transform = `translateX(calc(-10% + ${move}px))`;
+            let scrollPos = 0;
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            let isHovered = false;
+            let hasMoved = false;
+
+            function getHalfWidth() {
+                return track.scrollWidth / 2;
+            }
+
+            // Auto Scroll Loop
+            function step() {
+                if (!isDown && !isHovered) {
+                    scrollPos += speed;
+                    const halfWidth = getHalfWidth();
+                    if (halfWidth > 0) {
+                        if (scrollPos >= halfWidth) {
+                            scrollPos -= halfWidth;
+                        } else if (scrollPos < 0) {
+                            scrollPos += halfWidth;
+                        }
+                        wrapper.scrollLeft = scrollPos;
+                    }
+                }
+                requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+
+            // Hover pause
+            wrapper.addEventListener('mouseenter', () => { isHovered = true; });
+            wrapper.addEventListener('mouseleave', () => { 
+                isHovered = false; 
+                isDown = false;
+            });
+
+            // Touch & Mouse Drag (Swipe Manual)
+            wrapper.addEventListener('mousedown', (e) => {
+                isDown = true;
+                hasMoved = false;
+                startX = e.pageX;
+                scrollLeft = wrapper.scrollLeft;
+                scrollPos = scrollLeft;
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (isDown) {
+                    isDown = false;
+                    scrollPos = wrapper.scrollLeft;
+                }
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                const x = e.pageX;
+                const walk = (x - startX) * 1.5;
+                if (Math.abs(walk) > 4) hasMoved = true;
+                scrollPos = scrollLeft - walk;
+                wrapper.scrollLeft = scrollPos;
+            });
+
+            // Support Touch HP
+            wrapper.addEventListener('touchstart', (e) => {
+                isDown = true;
+                hasMoved = false;
+                startX = e.touches[0].pageX;
+                scrollLeft = wrapper.scrollLeft;
+                scrollPos = scrollLeft;
+            }, { passive: true });
+
+            wrapper.addEventListener('touchend', () => {
+                isDown = false;
+                scrollPos = wrapper.scrollLeft;
+            });
+
+            wrapper.addEventListener('touchmove', (e) => {
+                if (!isDown) return;
+                const x = e.touches[0].pageX;
+                const walk = (x - startX) * 1.5;
+                if (Math.abs(walk) > 4) hasMoved = true;
+                scrollPos = scrollLeft - walk;
+                wrapper.scrollLeft = scrollPos;
+            }, { passive: true });
+
+            // Event Klik Aman untuk Membuka Pop-up
+            track.querySelectorAll('.dsgn-box, .vid-card').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    // Jika sedang digeser (drag/swipe), batalkan aksi klik pop-up
+                    if (hasMoved) {
+                        e.stopImmediatePropagation();
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    let imgEl = item.querySelector('img');
+                    let titleEl = item.querySelector('h3');
+                    let imgSrc = imgEl ? (imgEl.getAttribute('data-detail') || imgEl.src) : '';
+                    let titleText = titleEl ? titleEl.textContent : (item.getAttribute('data-title') || 'Detail Proyek');
+
+                    if (imgSrc) {
+                        openModal(imgSrc, titleText);
+                    }
+                });
+            });
+        }
+
+        setupInfiniteSlider('design-slider', 0.5);
+        setupInfiniteSlider('video-slider', 0.5);
+
+        // 3. Script Modal Pop-up Smooth
+        function openModal(imgSrc, title) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImg');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            if (modal && modalImg && modalTitle) {
+                modalImg.src = imgSrc;
+                modalTitle.textContent = title;
+                modal.classList.add('active');
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        }
+
+        // Tutup modal dengan tombol Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
             }
         });
     </script>
