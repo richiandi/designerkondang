@@ -107,54 +107,27 @@
             height: 600px;
             background: url('POI.png') no-repeat center bottom;
             background-size: contain;
-            /* pointer-events: none dihapus agar gambar di dalamnya bisa tampil normal */
             position: relative;
             z-index: 5;
         }
 
-        /* --- STYLING ELEMEN MELAYANG --- */
         .floating-item {
             position: absolute;
             object-fit: contain;
             z-index: 6;
-            pointer-events: none; /* Agar tidak mengganggu klik */
+            pointer-events: none;
             filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.1));
         }
 
-        /* Posisi & Animasi masing-masing item */
-        .float-1 {
-            width: 150px; height: 150px;
-            top: 30%; left: 15px;
-            animation: float-up-down-1 4.5s ease-in-out infinite;
-        }
+        .float-1 { width: 65px; height: 65px; top: 30%; left: 15px; animation: float-up-down-1 4.5s ease-in-out infinite; }
+        .float-2 { width: 55px; height: 55px; top: 20%; right: 25px; animation: float-up-down-2 5.5s ease-in-out infinite; }
+        .float-3 { width: 75px; height: 75px; top: 60%; right: 15px; animation: float-up-down-3 4s ease-in-out infinite; }
 
-        .float-2 {
-            width: 150px; height: 150px;
-            top: 20%; right: 25px;
-            animation: float-up-down-2 5.5s ease-in-out infinite;
-        }
+        @keyframes float-up-down-1 { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-15px) rotate(5deg); } }
+        @keyframes float-up-down-2 { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(-6deg); } }
+        @keyframes float-up-down-3 { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-12px) rotate(3deg); } }
 
-        .float-3 {
-            width: 150px; height: 150px;
-            top: 60%; right: 15px;
-            animation: float-up-down-3 4s ease-in-out infinite;
-        }
-
-        /* Keyframes untuk efek melayang (Naik-Turun + Sedikit Miring) */
-        @keyframes float-up-down-1 {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(5deg); }
-        }
-        @keyframes float-up-down-2 {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(-6deg); }
-        }
-        @keyframes float-up-down-3 {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(3deg); }
-        }
-
-        /* Glass Card (Kiri dan Kanan) */
+        /* Glass Card */
         .glass-panel {
             background: var(--glass-bg);
             backdrop-filter: blur(25px);
@@ -182,19 +155,8 @@
             margin-bottom: 12px;
         }
 
-        .glass-panel p {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .glass-panel .link-btn {
-            color: #0071e3;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
+        .glass-panel p { font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; color: #333; }
+        .glass-panel .link-btn { color: #0071e3; text-decoration: none; font-weight: 600; font-size: 0.95rem; }
         .glass-panel .link-btn:hover { text-decoration: underline; }
         .glass-panel h3 { margin: 0 0 16px 0; font-size: 1.1rem; text-align: center;}
         
@@ -245,27 +207,8 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
-        .dock-item:hover {
-            transform: scale(1.6) translateY(-10px);
-            margin: 0 15px;
-            z-index: 10;
-        }
-
-        .dock-item::after {
-            content: attr(data-title);
-            position: absolute;
-            top: -40px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: normal;
-            opacity: 0;
-            white-space: nowrap;
-            pointer-events: none;
-            transition: opacity 0.2s;
-        }
+        .dock-item:hover { transform: scale(1.6) translateY(-10px); margin: 0 15px; z-index: 10; }
+        .dock-item::after { content: attr(data-title); position: absolute; top: -40px; background: rgba(0, 0, 0, 0.7); color: white; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: normal; opacity: 0; white-space: nowrap; pointer-events: none; transition: opacity 0.2s; }
         .dock-item:hover::after { opacity: 1; }
 
         .ic-ps { background: #001e36; border: 2px solid #31a8ff; color: #31a8ff; }
@@ -275,8 +218,8 @@
         .ic-cv { background: linear-gradient(135deg, #00c4cc, #7d2ae8); color: white; }
         .ic-fg { background: #ffffff; border: 2px solid #f24e1e; color: #f24e1e; }
 
-        /* --- STYLING UNTUK SECTION LAINNYA --- */
-        section:not(#home) {
+        /* --- STYLING UNTUK SECTION UMUM --- */
+        section:not(#home, #design, #video) {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -286,15 +229,148 @@
             box-sizing: border-box;
             background-color: var(--bg-alt);
         }
-        section:nth-child(even):not(#home) { background-color: var(--bg-color); }
+        section:nth-child(even):not(#home, #design, #video) { background-color: var(--bg-color); }
+        
         .container { max-width: 1080px; width: 100%; }
         .section-title { font-size: 3rem; margin-bottom: 16px; text-align: center; }
         .section-subtitle { text-align: center; color: var(--text-muted); font-size: 1.2rem; margin-bottom: 64px; }
         
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; }
         .card { background: var(--glass-bg); border-radius: 24px; padding: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); transition: transform 0.5s; border: 1px solid rgba(255,255,255,0.8); }
         .card:hover { transform: translateY(-8px); }
-        .card-img { width: 100%; height: 240px; background: #ebebef; border-radius: 16px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; }
+
+        /* =========================================================
+           DESIGN PORTFOLIO: POLA BATU BATA ASIMETRIS & SCROLL HORIZONTAL
+           ========================================================= */
+        #design {
+            width: 100vw;
+            padding: 120px 0;
+            background-color: var(--bg-alt);
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #design .section-title { margin-bottom: 60px; }
+
+        .design-marquee-wrapper {
+            width: 100%;
+            display: flex;
+            overflow: visible;
+        }
+
+        .design-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            will-change: transform;
+            transition: transform 0.1s ease-out;
+            padding: 0 5vw;
+        }
+
+        /* Grup Puzzle Batu Bata */
+        .dsgn-group { display: flex; gap: 20px; align-items: center; }
+        .dsgn-col { display: flex; flex-direction: column; gap: 20px; }
+        .dsgn-row-inner { display: flex; gap: 20px; }
+
+        /* Kotak Desain Hitam */
+        .dsgn-box {
+            background-color: #0c0c0c;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, z-index 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.3);
+            font-weight: bold;
+        }
+
+        .dsgn-box:hover { transform: scale(1.02); z-index: 10; }
+
+        /* Variasi 10 Konten Ukuran Asimetris (Pola Batu Bata) */
+        .box-1 { width: 260px; height: 500px; } 
+        .box-2 { width: 460px; height: 240px; }
+        .box-3 { width: 280px; height: 240px; }
+        .box-4 { width: 160px; height: 240px; } 
+        .box-5 { width: 400px; height: 500px; }
+        .box-6 { width: 340px; height: 500px; }
+        .box-7 { width: 450px; height: 240px; }
+        .box-8 { width: 250px; height: 240px; }
+        .box-9 { width: 180px; height: 240px; }
+        .box-10 { width: 350px; height: 500px; }
+
+        .dsgn-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+        .dsgn-box:hover img { opacity: 1; transform: scale(1.05); }
+
+        /* =========================================
+           VIDEO PORTFOLIO (16:9 & 9:16 ONLY)
+           ========================================= */
+        #video {
+            padding: 120px 24px;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .video-gallery {
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content: center;
+            gap: 24px;
+            width: 100%;
+            max-width: 1080px;
+        }
+
+        .vid-card {
+            height: 320px; 
+            background: linear-gradient(145deg, #1f1f22, #121214);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .vid-card:hover { transform: scale(1.03) translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+
+        .vid-16-9 { aspect-ratio: 16 / 9; }
+        .vid-9-16 { aspect-ratio: 9 / 16; }
+
+        .vid-thumb {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 1; transition: transform 0.6s ease;
+            background-color: #2c2c2e; 
+        }
+
+        .vid-card:hover .vid-thumb { transform: scale(1.05); }
+
+        .vid-overlay {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            height: 60%; padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white; display: flex; flex-direction: column; justify-content: flex-end; z-index: 2;
+        }
+
+        .vid-tag {
+            align-self: flex-start;
+            background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            padding: 4px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.5px;
+        }
+
+        .vid-overlay h3 { margin: 0; font-size: 1.1rem; font-weight: 600; }
 
         /* --- PERBAIKAN RESPONSIVITAS MOBILE --- */
         @media (max-width: 900px) {
@@ -304,44 +380,39 @@
             .bg-text-large { font-size: 20vw; top: 10%; }
             .bg-text-sub { font-size: 4vw; top: 25%; }
             
-            #home { 
-                flex-direction: column; 
-                justify-content: flex-start; 
-                padding-top: 100px; 
-                padding-bottom: 120px; 
-                height: auto;
-                min-height: 100vh;
-                overflow-y: visible;
-            }
-
-            .character-wrapper {
-                position: relative;
-                bottom: auto;
-                margin: 0 auto 20px auto;
-                width: 100%;
-                height: 380px;
-            }
-            .center-character { 
-                width: 100%; 
-                height: 100%; 
-            }
+            #home { flex-direction: column; justify-content: flex-start; padding-top: 100px; padding-bottom: 120px; height: auto; min-height: 100vh; overflow-y: visible; }
+            .character-wrapper { position: relative; bottom: auto; margin: 0 auto 20px auto; width: 100%; height: 380px; }
+            .center-character { width: 100%; height: 100%; }
             
-            /* Penyesuaian ukuran elemen melayang di versi mobile */
-            .float-1 { width: 100px; height: 100px; left: 10%; top: 25%; }
-            .float-2 { width: 100px; height: 100px; right: 10%; top: 15%; }
-            .float-3 { width: 100px; height: 100px; right: 15%; top: 55%; }
+            .float-1 { width: 50px; height: 50px; left: 10%; top: 25%; }
+            .float-2 { width: 45px; height: 45px; right: 10%; top: 15%; }
+            .float-3 { width: 55px; height: 55px; right: 15%; top: 55%; }
             
-            .panel-left, .panel-right {
-                position: relative;
-                left: 0; right: 0; top: 0;
-                transform: none;
-                margin: 0 auto 20px auto;
-                width: 85%;
-                max-width: none;
-            }
-            
+            .panel-left, .panel-right { position: relative; left: 0; right: 0; top: 0; transform: none; margin: 0 auto 20px auto; width: 85%; max-width: none; }
             .mac-dock { bottom: 20px; padding: 8px 12px; gap: 8px; }
             .dock-item { width: 40px; height: 40px; font-size: 1rem; }
+
+            /* Ukuran Mobile untuk Pola Batu Bata 10 Konten */
+            .dsgn-group { gap: 12px; }
+            .dsgn-col { gap: 12px; }
+            .dsgn-row-inner { gap: 12px; }
+            .design-track { gap: 12px; }
+            
+            .box-1 { width: 160px; height: 312px; }
+            .box-2 { width: 272px; height: 150px; }
+            .box-3 { width: 170px; height: 150px; }
+            .box-4 { width: 90px; height: 150px; }
+            .box-5 { width: 240px; height: 312px; }
+            .box-6 { width: 210px; height: 312px; }
+            .box-7 { width: 270px; height: 150px; }
+            .box-8 { width: 150px; height: 150px; }
+            .box-9 { width: 110px; height: 150px; }
+            .box-10 { width: 220px; height: 312px; }
+
+            .video-gallery { gap: 16px; }
+            .vid-card { height: auto; }
+            .vid-16-9 { width: 100%; }
+            .vid-9-16 { width: calc(50% - 8px); }
         }
     </style>
 </head>
@@ -356,6 +427,7 @@
         <a href="#contact">Contact</a>
     </nav>
 
+    <!-- 1. Bagian Home -->
     <section id="home">
         <div class="bg-text-large">PORTFOLIO</div>
         <div class="bg-text-sub">
@@ -363,10 +435,8 @@
             <span>2026</span>
         </div>
 
-        <!-- Wrapper untuk Karakter & Elemen Mengambang -->
         <div class="character-wrapper">
             <div class="center-character">
-                <!-- Elemen Mengambang -->
                 <img src="kamera.png" alt="Kamera" class="floating-item float-1">
                 <img src="film.png" alt="Film" class="floating-item float-2">
                 <img src="mac.png" alt="Mac" class="floating-item float-3">
@@ -378,7 +448,16 @@
             <p>Menerjemahkan ide abstrak menjadi pengalaman visual yang presisi, terorganisir, dan menarik. Menyeimbangkan strategi bisnis e-commerce dengan estetika desain modern.</p>
             <a href="#design" class="link-btn">Lihat karya saya &rarr;</a>
         </div>
-        
+
+        <div class="glass-panel panel-right">
+            <h3>Keahlian</h3>
+            <div class="skill-pill">★ Desain Grafis</div>
+            <div class="skill-pill">★ Video Editing</div>
+            <div class="skill-pill">★ E-Commerce Opt.</div>
+            <div class="skill-pill">★ Tipografi</div>
+            <div class="skill-pill">★ Visual Identity</div>
+        </div>
+
         <div class="mac-dock">
             <div class="dock-item ic-ps" data-title="Photoshop">Ps</div>
             <div class="dock-item ic-ai" data-title="Illustrator">Ai</div>
@@ -389,7 +468,7 @@
         </div>
     </section>
 
-    <!-- (Sisa halaman tidak ada perubahan) -->
+    <!-- 2. Bagian CV -->
     <section id="cv">
         <div class="container">
             <h2 class="section-title">Curriculum Vitae</h2>
@@ -405,28 +484,104 @@
         </div>
     </section>
 
+    <!-- 3. BAGIAN DESIGN (POLA BATU BATA 10 KONTEN + PARALLAX SCROLL ATAS/BAWAH) -->
     <section id="design">
-        <div class="container">
-            <h2 class="section-title">Design Portfolio</h2>
-            <div class="grid">
-                <div class="card"><div class="card-img">Desain 1</div><h3>Property Signage</h3></div>
-                <div class="card"><div class="card-img">Desain 2</div><h3>Exhibition Graphics</h3></div>
-                <div class="card"><div class="card-img">Desain 3</div><h3>Brand Identity</h3></div>
+        <h2 class="section-title">Design Portfolio</h2>
+        <p class="section-subtitle" style="margin-bottom: 40px;">Karya grafis, identitas visual, dan layout komersial.</p>
+        
+        <div class="design-marquee-wrapper">
+            <div class="design-track" id="dsgn-track">
+                
+                <!-- Grup Desain 1 (Konten 1 sampai 5: Pola Batu Bata Kiri) -->
+                <div class="dsgn-group">
+                    <div class="dsgn-box box-1">
+                        <img src="https://via.placeholder.com/260x500/0c0c0c/ffffff?text=Design+1" alt="Design 1">
+                    </div>
+                    <div class="dsgn-col">
+                        <div class="dsgn-box box-2">
+                            <img src="https://via.placeholder.com/460x240/0c0c0c/ffffff?text=Design+2" alt="Design 2">
+                        </div>
+                        <div class="dsgn-row-inner">
+                            <div class="dsgn-box box-3">
+                                <img src="https://via.placeholder.com/280x240/0c0c0c/ffffff?text=Design+3" alt="Design 3">
+                            </div>
+                            <div class="dsgn-box box-4">
+                                <img src="https://via.placeholder.com/160x240/0c0c0c/ffffff?text=Design+4" alt="Design 4">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dsgn-box box-5">
+                        <img src="https://via.placeholder.com/400x500/0c0c0c/ffffff?text=Design+5" alt="Design 5">
+                    </div>
+                </div>
+
+                <!-- Grup Desain 2 (Konten 6 sampai 10: Pola Batu Bata Kanan) -->
+                <div class="dsgn-group">
+                    <div class="dsgn-box box-6">
+                        <img src="https://via.placeholder.com/340x500/0c0c0c/ffffff?text=Design+6" alt="Design 6">
+                    </div>
+                    <div class="dsgn-col">
+                        <div class="dsgn-box box-7">
+                            <img src="https://via.placeholder.com/450x240/0c0c0c/ffffff?text=Design+7" alt="Design 7">
+                        </div>
+                        <div class="dsgn-row-inner">
+                            <div class="dsgn-box box-8">
+                                <img src="https://via.placeholder.com/250x240/0c0c0c/ffffff?text=Design+8" alt="Design 8">
+                            </div>
+                            <div class="dsgn-box box-9">
+                                <img src="https://via.placeholder.com/180x240/0c0c0c/ffffff?text=Design+9" alt="Design 9">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dsgn-box box-10">
+                        <img src="https://via.placeholder.com/350x500/0c0c0c/ffffff?text=Design+10" alt="Design 10">
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
+    <!-- 4. BAGIAN VIDEO (16:9 & 9:16 ONLY) -->
     <section id="video">
         <div class="container">
             <h2 class="section-title">Video Projects</h2>
-            <div class="grid">
-                <div class="card"><div class="card-img">Video 1</div><h3>E-Commerce Reels</h3></div>
-                <div class="card"><div class="card-img">Video 2</div><h3>Product Showcase</h3></div>
-                <div class="card"><div class="card-img">Video 3</div><h3>Event Coverage</h3></div>
+            <p class="section-subtitle" style="margin-bottom: 40px;">Eksplorasi visual dinamis dalam format komersial.</p>
+            
+            <div class="video-gallery">
+                <div class="vid-card vid-16-9">
+                    <img src="https://via.placeholder.com/1920x1080/1a1a1c/ffffff?text=Video+16:9" alt="Thumbnail" class="vid-thumb">
+                    <div class="vid-overlay">
+                        <span class="vid-tag">YOUTUBE / TVC</span>
+                        <h3>Commercial Showreel</h3>
+                    </div>
+                </div>
+                <div class="vid-card vid-9-16">
+                    <img src="https://via.placeholder.com/1080x1920/1a1a1c/ffffff?text=Video+9:16" alt="Thumbnail" class="vid-thumb">
+                    <div class="vid-overlay">
+                        <span class="vid-tag">TIKTOK</span>
+                        <h3>Product Hacks</h3>
+                    </div>
+                </div>
+                <div class="vid-card vid-9-16">
+                    <img src="https://via.placeholder.com/1080x1920/1a1a1c/ffffff?text=Video+9:16" alt="Thumbnail" class="vid-thumb">
+                    <div class="vid-overlay">
+                        <span class="vid-tag">REELS</span>
+                        <h3>Behind The Scenes</h3>
+                    </div>
+                </div>
+                <div class="vid-card vid-16-9">
+                    <img src="https://via.placeholder.com/1920x1080/1a1a1c/ffffff?text=Video+16:9" alt="Thumbnail" class="vid-thumb">
+                    <div class="vid-overlay">
+                        <span class="vid-tag">EVENT</span>
+                        <h3>Exhibition Highlight</h3>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- 5. Bagian Company -->
     <section id="company">
         <div class="container">
             <h2 class="section-title">Gallerich Studio</h2>
@@ -436,6 +591,7 @@
         </div>
     </section>
 
+    <!-- 6. Bagian Contact -->
     <section id="contact">
         <div class="container" style="text-align: center;">
             <h2 class="section-title">Mari Berkolaborasi</h2>
@@ -445,7 +601,9 @@
         </div>
     </section>
 
+    <!-- --- JAVASCRIPT --- -->
     <script>
+        // 1. Script Smooth Scroll Navigasi
         document.querySelectorAll('nav a, .link-btn').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -479,6 +637,22 @@
                     requestAnimationFrame(animation);
                 }
             });
+        });
+
+        // 2. Script Parallax Horizontal (Geser Kiri/Kanan saat Scroll Atas/Bawah)
+        window.addEventListener('scroll', function() {
+            const dsgnSec = document.getElementById('design');
+            const track = document.getElementById('dsgn-track');
+            
+            if (dsgnSec && track) {
+                const rect = dsgnSec.getBoundingClientRect();
+                const distanceFromCenter = window.innerHeight / 2 - (rect.top + rect.height / 2);
+                
+                // Saat scroll ke bawah (distanceFromCenter berubah), track bergeser ke kiri/kanan secara mulus
+                const move = distanceFromCenter * 0.5;
+                
+                track.style.transform = `translateX(calc(-10% + ${move}px))`;
+            }
         });
     </script>
 </body>
